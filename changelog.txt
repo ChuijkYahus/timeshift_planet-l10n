@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.6.2
+Date: 2026-09-
+  Graphics:
+    - Added Panderoots glow animation
+    - Added Panderoots custom pipe connections
+  Gui:
+    - Panglite recipe always shows it's made in furnaces
+  Locale:
+    - Update of Chinese locale by ChuijkYahus
+---------------------------------------------------------------------------------------------------
 Version: 0.6.1
 Date: 2026-09-10
   Balancing:

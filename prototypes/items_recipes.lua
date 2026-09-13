@@ -143,6 +143,7 @@ data:extend({
     --subgroup = "panglia-processes",
     --order = "a[base]-cc",
     categories = {"smelting"},
+    always_show_made_in = true,
     enabled = false,
     auto_recycle = false,
     energy_required = 1 * beacon_multiplier,

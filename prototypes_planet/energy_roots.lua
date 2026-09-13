@@ -1,3 +1,4 @@
+require ("__base__.prototypes.entity.pipecovers")
 local icons = "__panglia_planet__/graphics/icons/"
 local entity = "__panglia_planet_assets__/graphics/entity/"
 local tssounds = "__panglia_planet_assets__/sounds/"
@@ -37,7 +38,64 @@ local emptyturretanim = {
   run_mode = "forward",
 }
 
-local multidir_anim = {
+
+local pipe_picture = {
+  north =
+  {
+    filename = entity .. "panglia_energy_roots/panglia_energy_roots-pipe-N.png",
+    priority = "extra-high",
+    width = 256,
+    height = 256,
+    shift = util.by_pixel(0, 32),
+    scale = 0.5
+  },
+  east =
+  {
+    filename = entity .. "panglia_energy_roots/panglia_energy_roots-pipe-E.png",
+    priority = "extra-high",
+    width = 256,
+    height = 256,
+    shift = util.by_pixel(-32, 0),
+    scale = 0.5
+  },
+  south =
+  {
+    filename = entity .. "panglia_energy_roots/panglia_energy_roots-pipe-S.png",
+    priority = "extra-high",
+    width = 256,
+    height = 256,
+    shift = util.by_pixel(0, -32),
+    scale = 0.5
+  },
+  west =
+  {
+    filename = entity .. "panglia_energy_roots/panglia_energy_roots-pipe-W.png",
+    priority = "extra-high",
+    width = 256,
+    height = 256,
+    shift = util.by_pixel(32, 0),
+    scale = 0.5
+  }
+}
+
+glow_seq = {
+1,9,10,11,12,13,14,15,16,16,15,14,13,12,11,10,2,1,
+1,9,10,11,12,13,14,15,16,16,15,14,13,12,8,10,9,1,
+1,9,10,11,12,13,14,15,16,16,15,14,13,12,11,10,9,1,
+1,9,2,11,12,13,14,15,16,16,15,14,13,12,11,10,9,1,
+1,9,10,11,12,13,14,15,16,4,15,14,7,12,11,10,9,1,
+1,9,3,11,12,13,14,3,16,16,15,14,13,12,11,10,9,1,
+1,9,10,11,12,13,14,15,16,16,15,14,13,12,8,10,9,1,
+1,9,10,11,12,13,14,15,16,16,15,14,13,12,11,10,9,1,
+1,9,10,11,12,13,14,15,16,16,15,14,13,4,11,10,9,1,
+1,9,10,11,12,13,14,15,16,16,15,14,13,12,11,10,9,1,
+1,9,5,11,12,13,14,15,16,16,15,14,13,12,11,10,9,1,
+1,9,10,11,12,13,14,15,16,6,15,14,13,12,11,10,9,1,
+1,9,10,11,12,13,6,15,16,16,15,14,13,12,11,10,9,1,
+1,9,10,11,12,7,14,15,16,16,15,14,13,12,11,5,9,1,
+}
+
+local integration = {
   layers =
   {
     {
@@ -48,27 +106,30 @@ local multidir_anim = {
       line_length = 1,
       scale = 0.5,
     },
-    --[[{
-      filename = entity .. "panglia_energy_roots/panglia_energy_roots_1_shadow.png",
-      width = 704,
-      height = 704,
-      repeat_count = 1,
-      line_length = 1,
-      scale = 0.5,
-      draw_as_shadow = true,
-    },]]
-    {
-      filename = entity .. "panglia_energy_roots/panglia_energy_roots_1_glow.png",
-      width = 704,
-      height = 704,
-      repeat_count = 1,
-      line_length = 1,
-      scale = 0.5,
-      draw_as_glow = true,
-      blend_mode = "additive",
-    },
   }
 }
+
+local multidir_anim = {
+  animation = {
+    layers =
+    {
+      {
+        filename = entity .. "panglia_energy_roots/panglia_energy_roots_1_glow.png",
+        width = 448,
+        height = 448,
+        frame_count = 16,
+        line_length = 8,
+        frame_sequence = glow_seq,
+        animation_speed = 1,
+        repeat_count = 1,
+        scale = 0.5,
+        draw_as_glow = true,
+        blend_mode = "additive",
+      },
+    }
+  }
+}
+
 
 
 data:extend({
@@ -183,6 +244,8 @@ data:extend({
           scale = 0.5
         }
       },]]
+      pipe_picture = pipe_picture,
+      --pipe_covers = pipecoverspictures(),
       always_draw_covers = false,
       pipe_connections =
       {
@@ -191,6 +254,7 @@ data:extend({
         { flow_direction = "input", direction = defines.direction.south, position = {0, 3} },
         { flow_direction = "input", direction = defines.direction.west, position = {-3, 0} },
       },
+      draw_only_when_connected = true,
       production_type = "input",
       filter = "panglia_branbalite_slurry",
       minimum_temperature = 0,
@@ -202,9 +266,14 @@ data:extend({
       render_no_power_icon = false,
       render_no_network_icon = false,
     },
-    --horizontal_animation = multidir_anim,
-    --vertical_animation = multidir_anim,
-    integration_patch = multidir_anim,
+    pictures = {
+      north = multidir_anim,
+      east = multidir_anim,
+      south = multidir_anim,
+      west = multidir_anim,
+    },
+    perceived_performance = {minimum = 0.1, maximum = 1},
+    integration_patch = integration,
     smoke =
     {
       {
