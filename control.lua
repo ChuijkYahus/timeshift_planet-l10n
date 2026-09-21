@@ -215,3 +215,58 @@ script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_e
         end
     end
 end)
+
+
+
+
+script.on_event(prototypes.recipe["panglia_collect_dna_fish"].on_crafted_event, function(event)
+    if not event.entity or not event.entity.valid then return end
+    local force = event.entity.force
+    if not event.entity.force then return end
+    if force.technologies["panglia_advanced_optics_nanotech"].researched then
+        if not force.technologies["panglia_collect_dna_fish"].researched then
+            force.technologies["panglia_collect_dna_fish"].researched = true
+        end
+        --script.on_event(prototypes.recipe["panglia_collect_dna_fish"].on_crafted_event, nil) -- would produce desync
+    end
+end)
+
+
+script.on_event({prototypes.recipe["panglia_collect_dna_biter"].on_crafted_event,prototypes.recipe["panglia_collect_dna_biter_egg"].on_crafted_event}, function(event)
+    if not event.entity or not event.entity.valid then return end
+    local force = event.entity.force
+    if not event.entity.force then return end
+    if force.technologies["panglia_advanced_optics_nanotech"].researched then
+        if not force.technologies["panglia_collect_dna_biter"].researched then
+            force.technologies["panglia_collect_dna_biter"].researched = true
+        end
+        --script.on_event(prototypes.recipe["panglia_collect_dna_biter"].on_crafted_event, nil) -- would produce desync
+    end
+end)
+
+
+
+script.on_event(prototypes.recipe["panglia_collect_dna_demolisher"].on_crafted_event, function(event)
+    if not event.entity or not event.entity.valid then return end
+    local force = event.entity.force
+    if not event.entity.force then return end
+    if force.technologies["panglia_advanced_optics_nanotech"].researched then
+        if not force.technologies["panglia_collect_dna_demolisher"].researched then
+            force.technologies["panglia_collect_dna_demolisher"].researched = true
+        end
+        --script.on_event(prototypes.recipe["panglia_collect_dna_demolisher"].on_crafted_event, nil) -- would produce desync
+    end
+end)
+
+
+script.on_event(prototypes.recipe["panglia_collect_dna_pentapod"].on_crafted_event, function(event)
+    if not event.entity or not event.entity.valid then return end
+    local force = event.entity.force
+    if not event.entity.force then return end
+    if force.technologies["panglia_advanced_optics_nanotech"].researched then
+        if not force.technologies["panglia_collect_dna_pentapod"].researched then
+            force.technologies["panglia_collect_dna_pentapod"].researched = true
+        end
+        --script.on_event(prototypes.recipe["panglia_collect_dna_pentapod"].on_crafted_event, nil) -- would produce desync
+    end
+end)

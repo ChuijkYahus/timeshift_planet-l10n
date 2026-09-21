@@ -1,5 +1,6 @@
 local icons = "__panglia_planet__/graphics/icons/"
 local datacellicons = "__panglia_planet__/graphics/icons/data/"
+local entity = "__panglia_planet_assets__/graphics/entity/"
 
 local beacon_multiplier = 50
 local panglia_only = {{property = "pressure", min = 1401, max = 1401}}
@@ -29,6 +30,10 @@ data:extend({
     name = "panglia-production-machine",
     group = "production",
     order = "e3"
+  },
+  {
+    type = "recipe-category",
+    name = "dna_scanning"
   },
   {
     type = "recipe-category",
@@ -415,7 +420,7 @@ data:extend({
     ingredients = {
       { type = "item", name = "panglia_dust", amount = 1 },
     },
-    results = {{ type = "item", name = "panglia_dust", amount = 1, independent_probability = 0.25 }},
+    results = {{ type = "item", name = "panglia_dust", amount = 1, independent_probability = 0.5 }},
     auto_recycle = false,
   },
 
@@ -689,7 +694,259 @@ data:extend({
   },
 
 
-})
+
+
+--    ██████  ███    ██  █████  
+--    ██   ██ ████   ██ ██   ██ 
+--    ██   ██ ██ ██  ██ ███████ 
+--    ██   ██ ██  ██ ██ ██   ██ 
+--    ██████  ██   ████ ██   ██ 
+
+  {
+    type = "smoke-with-trigger",
+    name = "biter_dna_sample_decomposition",
+    animation = {
+      filename = entity .. "dna/biter_dna_sample_decomposition.png",
+      flags = {"corpse-decay"},
+      priority = "high",
+      width = 64,
+      height = 64,
+      frame_count = 16,
+      animation_speed = 1/60,
+      scale = 0.25,
+      --blend_mode = "normal",
+      --tint = opts.tint
+    },
+    render_layer = "above-tiles",
+    affected_by_wind = false,
+    movement_slow_down_factor = 1,
+    duration = 16*60,
+    fade_away_duration = 120,
+    show_when_smoke_off = true,
+    start_scale = 0.25,
+    end_scale = 0.25,
+  },
+
+
+  {
+    type = "item",
+    name = "biter_dna_sample",
+    icon = icons .. "biter_dna_sample.png",
+    pictures =
+    {
+
+      { filename = icons .. "biter_dna_sample.png", size = 64, scale = 0.5 },
+      { filename = icons .. "biter_dna_sample-1.png", size = 64, scale = 0.5 },
+      { filename = icons .. "biter_dna_sample-2.png", size = 64, scale = 0.5 },
+    },
+    --subgroup = "moshine-processes",
+    default_import_location = "nauvis",
+    --order = "iii",
+    inventory_move_sound = space_age_item_sounds.agriculture_inventory_move,
+    pick_sound = space_age_item_sounds.agriculture_inventory_move,
+    drop_sound = space_age_item_sounds.agriculture_inventory_move,
+    stack_size = 20,
+    weight = 1*kg,
+    spoil_ticks = 8 * minute,
+    spoil_to_trigger_result =
+    {
+      items_per_trigger = 1, -- per 5 items the trigger is run
+      trigger =
+      {
+        type = "direct",
+        action_delivery =
+        {
+          type = "instant",
+          source_effects =
+          {
+            {
+              type = "create-smoke",
+              show_in_tooltip = false,
+              entity_name = "biter_dna_sample_decomposition",
+              initial_height = 0
+            },
+          }
+        }
+      }
+    }
+  },
+
+
+  {
+    type = "item",
+    name = "demolisher_dna_scale",
+    icon = icons .. "demolisher_dna_scale.png",
+    pictures =
+    {
+      { filename = icons .. "demolisher_dna_scale.png", size = 64, scale = 1.5 },
+      { filename = icons .. "demolisher_dna_scale-1.png", size = 64, scale = 1.5 },
+      { filename = icons .. "demolisher_dna_scale-2.png", size = 64, scale = 1.5 },
+      { filename = icons .. "demolisher_dna_scale.png", size = 64, scale = 1.7 },
+      { filename = icons .. "demolisher_dna_scale-1.png", size = 64, scale = 1.7 },
+      { filename = icons .. "demolisher_dna_scale-2.png", size = 64, scale = 1.7 },
+    },
+    --subgroup = "moshine-processes",
+    default_import_location = "vulcanus",
+    --order = "iii",
+    inventory_move_sound = item_sounds.rock_inventory_move,
+    pick_sound = item_sounds.rock_inventory_move,
+    drop_sound = item_sounds.rock_inventory_move,
+    stack_size = 1,
+    weight = 50*kg,
+  },
+
+
+--panglia_collect_dna_fish
+--panglia_collect_dna_biter
+--panglia_collect_dna_demolisher
+--panglia_collect_dna_pentapod
+
+  {
+    type = "recipe",
+    name = "panglia_collect_dna_fish",
+    icon = datacellicons .. "panglia_collect_dna_fish.png",
+    subgroup = "panglia-processes",
+    order = "c[dna_scanning]-dda",
+    categories = {"dna_scanning"},
+    energy_required = 1,
+    ingredients = {
+      --{type = "item", name = "datacell-empty", amount = 1},
+      {type = "item", name = "raw-fish", amount = 1},
+    },
+    results = 
+    {
+      --{type = "item", name = "datacell-dna-raw", amount = 1, shared_probability = {min = 0, max = 0.01}},
+      --{type = "item", name = "datacell-empty", amount = 1, shared_probability = {min = 0.01, max = 1}},
+
+      {type = "fluid", name = "dna_raw_data", amount_min = 12, amount_max = 30},
+      {type = "item", name = "spoilage", amount = 1},
+    },
+    --main_product = "datacell-dna-raw",
+    allow_productivity = true,
+    enabled = false,
+    sort_item_ingredients = false,
+    --crafting_machine_tint = {primary = util.color("#48001e")},
+    raise_on_crafted = true,
+  },
+
+
+  {
+    type = "recipe",
+    name = "panglia_collect_dna_biter",
+    icon = datacellicons .. "panglia_collect_dna_biter.png",
+    subgroup = "panglia-processes",
+    order = "c[dna_scanning]-ddb",
+    categories = {"dna_scanning"},
+    energy_required = 1,
+    ingredients = {
+      --{type = "item", name = "datacell-empty", amount = 1},
+      {type = "item", name = "biter_dna_sample", amount = 1},
+    },
+    results = 
+    {
+     -- {type = "item", name = "datacell-dna-raw", amount = 1, shared_probability = {min = 0, max = 0.01}},
+      --{type = "item", name = "datacell-empty", amount = 1, shared_probability = {min = 0.01, max = 1}},
+      {type = "fluid", name = "dna_raw_data", amount_min = 15, amount_max = 120},
+      {type = "item", name = "spoilage", amount = 1},
+    },
+    --main_product = "datacell-dna-raw",
+    allow_productivity = true,
+    enabled = false,
+    sort_item_ingredients = false,
+    --crafting_machine_tint = {primary = util.color("#48001e")},
+    raise_on_crafted = true,
+  },
+
+  {
+    type = "recipe",
+    name = "panglia_collect_dna_biter_egg",
+    icon = datacellicons .. "panglia_collect_dna_biter_egg.png",
+    subgroup = "panglia-processes",
+    order = "c[dna_scanning]-ddc",
+    categories = {"dna_scanning"},
+    energy_required = 30,
+    ingredients = {
+      --{type = "item", name = "datacell-empty", amount = 1},
+      {type = "item", name = "biter-egg", amount = 1},
+    },
+    results = 
+    {
+     -- {type = "item", name = "datacell-dna-raw", amount = 1, shared_probability = {min = 0, max = 0.01}},
+      --{type = "item", name = "datacell-empty", amount = 1, shared_probability = {min = 0.01, max = 1}},
+      {type = "fluid", name = "dna_raw_data", amount_min = 302, amount_max = 2780},
+      {type = "item", name = "spoilage", amount = 1},
+    },
+    --main_product = "datacell-dna-raw",
+    allow_productivity = true,
+    enabled = false,
+    sort_item_ingredients = false,
+    --crafting_machine_tint = {primary = util.color("#48001e")},
+    raise_on_crafted = true,
+  },
+
+
+  {
+    type = "recipe",
+    name = "panglia_collect_dna_demolisher",
+    icon = datacellicons .. "panglia_collect_dna_demolisher.png",
+    subgroup = "panglia-processes",
+    order = "c[dna_scanning]-ddd",
+    categories = {"dna_scanning"},
+    energy_required = 100,
+    ingredients = {
+      --{type = "item", name = "datacell-empty", amount = 1},
+      {type = "item", name = "demolisher_dna_scale", amount = 1},
+    },
+    results = 
+    {
+     -- {type = "item", name = "datacell-dna-raw", amount = 1, shared_probability = {min = 0, max = 0.01}},
+      --{type = "item", name = "datacell-empty", amount = 1, shared_probability = {min = 0.01, max = 1}},
+      {type = "fluid", name = "dna_raw_data", amount_min = 302, amount_max = 4780},
+      {type = "item", name = "stone", amount_min = 17, amount_max = 32},
+    },
+    --main_product = "datacell-dna-raw",
+    allow_productivity = true,
+    enabled = false,
+    sort_item_ingredients = false,
+    --crafting_machine_tint = {primary = util.color("#48001e")},
+    raise_on_crafted = true,
+  },
+
+
+  {
+    type = "recipe",
+    name = "panglia_collect_dna_pentapod",
+    icon = datacellicons .. "panglia_collect_dna_pentapod.png",
+    subgroup = "panglia-processes",
+    order = "c[dna_scanning]-dde",
+    categories = {"dna_scanning"},
+    energy_required = 1,
+    ingredients = {
+      --{type = "item", name = "datacell-empty", amount = 1},
+      {type = "item", name = "pentapod-egg", amount = 1},
+    },
+    results = 
+    {
+     -- {type = "item", name = "datacell-dna-raw", amount = 1, shared_probability = {min = 0, max = 0.01}},
+      --{type = "item", name = "datacell-empty", amount = 1, shared_probability = {min = 0.01, max = 1}},
+      {type = "fluid", name = "dna_raw_data", amount = 100},
+      {type = "item", name = "spoilage", amount = 1},
+    },
+    --main_product = "datacell-dna-raw",
+    allow_productivity = true,
+    enabled = false,
+    sort_item_ingredients = false,
+    --crafting_machine_tint = {primary = util.color("#48001e")},
+    raise_on_crafted = true,
+  },
+
+
+
+
+
+
+
+
 
 --    ██████   █████  ████████  █████   ██████ ███████ ██      ██      ███████ 
 --    ██   ██ ██   ██    ██    ██   ██ ██      ██      ██      ██      ██      
@@ -697,7 +954,10 @@ data:extend({
 --    ██   ██ ██   ██    ██    ██   ██ ██      ██      ██      ██           ██ 
 --    ██████  ██   ██    ██    ██   ██  ██████ ███████ ███████ ███████ ███████ 
 
-data:extend({
+
+
+
+
   {
     type = "item",
     name = "datacell-dna-raw",
@@ -717,6 +977,7 @@ data:extend({
     plant_result = "processing-grid-process-dna",
     weight = 0.5*kg,
   },
+  --[[
   {
     type = "recipe",
     name = "datacell-dna-raw",
@@ -739,6 +1000,53 @@ data:extend({
     enabled = false,
     crafting_machine_tint = {primary = util.color("#48001e")},
   },
+]]
+
+  {
+    type = "recipe",
+    name = "datacell-dna-raw",
+    icon =  datacellicons .. "datacell-dna-raw.png",
+    categories = {"data-processing"},
+    subgroup = "moshine-datacells",
+    order = "b[panglia]-ee",
+    hide_from_player_crafting = true,
+    energy_required = 1,
+    ingredients = {
+      {type = "item", name = "datacell-empty", amount = 1, ignored_by_stats = 1},
+      {type = "fluid", name = "dna_raw_data", amount = 150, ignored_by_stats = 150},
+    },
+    results = {{type = "item", name = "datacell-dna-raw", amount = 1, ignored_by_stats = 1}},
+    allow_productivity = false,
+    auto_recycle = false,
+    enabled = false,
+    crafting_machine_tint = {primary = util.color("#48001e")},
+  },
+  {
+    type = "recipe",
+    name = "datacell-remove-dna-raw",
+    icon = datacellicons .. "datacell-dna-raw-remove.png",
+    categories = {"data-processing"},
+    subgroup = "moshine-datacells",
+    order = "b[panglia]-ef",
+    hide_from_player_crafting = true,
+    hide_from_stats = true,
+    energy_required = 1,
+    ingredients = {
+      {type = "item", name = "datacell-dna-raw", amount = 1, ignored_by_stats = 1},
+    },
+    results = {
+      {type = "item", name = "datacell-empty", amount = 1, ignored_by_stats = 1},
+      {type = "fluid", name = "dna_raw_data", amount = 150, ignored_by_stats = 150},
+    },
+    allow_productivity = false,
+    auto_recycle = false,
+    enabled = false,
+    hide_from_player_crafting = true,
+    crafting_machine_tint = {primary = util.color("#48001e")},
+  },
+
+
+
   {
     type = "item",
     name = "datacell-dna-sequenced",
@@ -756,6 +1064,51 @@ data:extend({
     default_import_location = "panglia",
     weight = 0.5*kg
   },
+
+  {
+    type = "recipe",
+    name = "datacell-dna-sequenced",
+    icon =  datacellicons .. "datacell-dna-unfolded.png",
+    categories = {"data-processing"},
+    subgroup = "moshine-datacells",
+    order = "b[panglia]-fe",
+    hide_from_player_crafting = true,
+    energy_required = 1,
+    ingredients = {
+      {type = "item", name = "datacell-empty", amount = 1, ignored_by_stats = 1},
+      {type = "fluid", name = "dna_sequenced_data", amount = 100, ignored_by_stats = 100},
+    },
+    results = {{type = "item", name = "datacell-dna-sequenced", amount = 1, ignored_by_stats = 1}},
+    allow_productivity = false,
+    auto_recycle = false,
+    enabled = false,
+    crafting_machine_tint = {primary = util.color("#ffeeee")},
+  },
+  {
+    type = "recipe",
+    name = "datacell-remove-dna-sequenced",
+    icon = datacellicons .. "datacell-dna-unfolded-remove.png",
+    categories = {"data-processing"},
+    subgroup = "moshine-datacells",
+    order = "b[panglia]-ff",
+    hide_from_player_crafting = true,
+    hide_from_stats = true,
+    energy_required = 1,
+    ingredients = {
+      {type = "item", name = "datacell-dna-sequenced", amount = 1, ignored_by_stats = 1},
+    },
+    results = {
+      {type = "item", name = "datacell-empty", amount = 1, ignored_by_stats = 1},
+      {type = "fluid", name = "dna_sequenced_data", amount = 100, ignored_by_stats = 100},
+    },
+    allow_productivity = false,
+    auto_recycle = false,
+    enabled = false,
+    hide_from_player_crafting = true,
+    crafting_machine_tint = {primary = util.color("#ffeeee")},
+  },
+
+
 
   --[[{
     type = "recipe",
