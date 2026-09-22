@@ -261,7 +261,7 @@ data:extend({
     --random_tint_color = item_tints.iron_rust,
     fuel_value = "11MJ",
     --fuel_category = "panglia_branbalite",
-    fuel_category = "chemical",
+    fuel_categories = {"chemical"},
     plant_result = "panglia_branbalite_plant",
     place_result = "panglia_branbalite_plant",
     spoil_ticks = 90 * minute,

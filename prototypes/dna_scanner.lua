@@ -343,7 +343,7 @@ data:extend({
     pick_sound = item_sounds.mechanical_inventory_pickup,
     drop_sound = item_sounds.mechanical_inventory_move,
     stack_size = 20,
-    weight = 100 * kg
+    weight = 200 * kg
   },
 
   {
@@ -462,8 +462,6 @@ data:extend({
     },
     energy_usage = "30kW",
     heating_energy = "200kW",
-    open_sound = sounds.machine_open,
-    close_sound = sounds.machine_close,
     module_slots = 2,
     allowed_effects = {"speed", "consumption", "pollution", "productivity"},
     effect_receiver = {uses_module_effects = true, uses_beacon_effects = true, uses_surface_effects = true},
@@ -472,10 +470,17 @@ data:extend({
     close_sound = {filename = soundspath .. "tv_close.ogg", volume = 1},
     working_sound =
     {
-      sound = {filename = soundspath .. "tv_loop.ogg", volume = 0.5},
+      sound = {filename = soundspath .. "dna_scanner.ogg", volume = 0.5},
       max_sounds_per_prototype = 5,
       fade_in_ticks = 20,
       fade_out_ticks = 20,
+      sound_accents = {
+        {
+          sound = {filename = soundspath .. "dna_scanner_recurring.ogg", volume = 1.5},
+          frame = 30,
+          play_for_working_visualisation = "running_anim"
+        },
+      },
     },
   },
 })
