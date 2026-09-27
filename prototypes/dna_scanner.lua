@@ -155,7 +155,7 @@ local graphicsset =
         },
       },
     },
-    {
+    --[[{
       name = "dna_helix",
       constant_speed = false,
       always_draw = true,
@@ -185,7 +185,7 @@ local graphicsset =
           },
         },
       },
-    },
+    },]]
 
     {
       name = "base",
