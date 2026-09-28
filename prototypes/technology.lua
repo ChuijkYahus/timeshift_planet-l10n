@@ -370,7 +370,7 @@ data:extend({
         recipe = "panglia_panglite_glass"
       },
     },
-    prerequisites = {"panglia_planet_discovery_panglia"},
+    prerequisites = {"panglia_panglite_multiplication"},
     unit =
     {
       count = 400,

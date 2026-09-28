@@ -95,19 +95,21 @@ glow_seq = {
 1,9,10,11,12,7,14,15,16,16,15,14,13,12,11,5,9,1,
 }
 
-local integration = {
-  layers =
-  {
+local function integration_graphics(num)
+  return {
+    layers =
     {
-      filename = entity .. "panglia_energy_roots/panglia_energy_roots_1_base.png",
-      width = 704,
-      height = 704,
-      repeat_count = 1,
-      line_length = 1,
-      scale = 0.5,
-    },
+      {
+        filename = entity .. "panglia_energy_roots/panglia_energy_roots_"..num.."_base.png",
+        width = 704,
+        height = 704,
+        repeat_count = 1,
+        line_length = 1,
+        scale = 0.5,
+      },
+    }
   }
-}
+end
 
 local multidir_anim = {
   animation = {
@@ -273,7 +275,12 @@ data:extend({
       west = multidir_anim,
     },
     perceived_performance = {minimum = 0.1, maximum = 1},
-    integration_patch = integration,
+    integration_patch = {
+      north = integration_graphics("1"),
+      east = integration_graphics("2"),
+      south = integration_graphics("3"),
+      west = integration_graphics("4"),
+    },
     integration_patch_render_layer = "ground-patch",
     smoke =
     {

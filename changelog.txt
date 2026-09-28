@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.7.0
-Date: 2026-09-
+Date: 2026-09-28
   Features:
     - Added Panglite glass and its tech
     - Added Nanoscale Plant to analyze DNA (with animation, light, sounds...)
@@ -13,9 +13,10 @@ Date: 2026-09-
     - Simulation chamber now requires Nanoscale Plant
     - Moved some techs around to fit the changes
   Graphics:
-    - Reworked Panderoots graphics, including its attack turrets, glow animation and custop pipe connections
+    - Reworked Panderoots graphics, including its attack turrets (overgrowths), glow animation, variations and custop pipe connections
     - Gave Panglite decoratives/icons a distinctive and consistent orange-green gradient tint
-    - Edited igneous rocks to be more orangey
+    - Edited igneous rocks to be more orangey and normal rocks to have kind of mushrooms on them
+    - Edited cliffs and terrain
     - Reworked some icons and tech icons
     - New planet icon and starmap sprite
   Gui:

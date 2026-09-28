@@ -144,7 +144,7 @@ data:extend({
   {
     type = "recipe",
     name = "panglia_panglite",
-    --icon = icons .. "panglia_panglite_multiplication.png",
+    icon = icons .. "panglia_panglite_multiplication.png",
     --subgroup = "panglia-processes",
     --order = "a[base]-cc",
     categories = {"smelting"},
