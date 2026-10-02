@@ -65,6 +65,7 @@ data:extend({
     allow_productivity = false,
     enabled = false,
     auto_recycle = false,
+    allow_decomposition = false,
     surface_conditions = panglia_only,
     sort_item_ingredients = false,
   },

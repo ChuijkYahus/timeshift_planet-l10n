@@ -91,6 +91,7 @@ data:extend({
     categories = {"metallurgy"},
     enabled = false,
     auto_recycle = false,
+    allow_decomposition = false,
     energy_required = 1 * beacon_multiplier,
     ingredients = {
       {type = "item", name = "panglia_igneous_rock", amount = 1}
@@ -151,6 +152,7 @@ data:extend({
     always_show_made_in = true,
     enabled = false,
     auto_recycle = false,
+    allow_decomposition = false,
     energy_required = 1 * beacon_multiplier,
     ingredients = {
       {type = "item", name = "panglia_panglite", amount = 5}
@@ -201,6 +203,7 @@ data:extend({
     always_show_made_in = true,
     enabled = false,
     auto_recycle = false,
+    allow_decomposition = false,
     energy_required = 10,
     ingredients = {
       {type = "item", name = "panglia_panglite", amount = 1},
@@ -240,6 +243,7 @@ data:extend({
     categories = {"electromagnetics", "centrifuging"},
     enabled = false,
     auto_recycle = false,
+    allow_decomposition = false,
     energy_required = 5 * beacon_multiplier,
     ingredients = {
       {type = "item", name = "panglia_panglite", amount = 40},
@@ -603,6 +607,7 @@ data:extend({
     show_amount_in_title = false,
     --always_show_made_in = true,
     auto_recycle = false,
+    allow_decomposition = false,
     surface_conditions = panglia_only,
   },
 
@@ -654,6 +659,7 @@ data:extend({
     enabled = false,
     surface_conditions = panglia_only,
     sort_item_ingredients = false,
+    allow_decomposition = false,
   },
   {
     type = "recipe",
@@ -684,6 +690,7 @@ data:extend({
     surface_conditions = panglia_only,
     sort_item_ingredients = false,
     auto_recycle = false,
+    allow_decomposition = false,
   },
 
   {
@@ -709,6 +716,7 @@ data:extend({
     --allow_inserter_overload = true,
     --overload_multiplier = 1000,
     auto_recycle = false,
+    allow_decomposition = false,
     --hidden = true,
     hide_from_player_crafting = true,
     hidden_in_factoriopedia = false,
@@ -747,6 +755,7 @@ data:extend({
     --allow_inserter_overload = true,
     --overload_multiplier = 1000,
     auto_recycle = false,
+    allow_decomposition = false,
     --hidden = true,
     hide_from_player_crafting = true,
     hidden_in_factoriopedia = false,
@@ -793,7 +802,6 @@ data:extend({
     icon = icons .. "biter_dna_sample.png",
     pictures =
     {
-
       { filename = icons .. "biter_dna_sample.png", size = 64, scale = 0.5 },
       { filename = icons .. "biter_dna_sample-1.png", size = 64, scale = 0.5 },
       { filename = icons .. "biter_dna_sample-2.png", size = 64, scale = 0.5 },
@@ -806,6 +814,7 @@ data:extend({
     drop_sound = space_age_item_sounds.agriculture_inventory_move,
     stack_size = 20,
     weight = 1*kg,
+    auto_recycle = false,
     spoil_ticks = 8 * minute,
     spoil_to_trigger_result =
     {
@@ -851,6 +860,7 @@ data:extend({
     pick_sound = item_sounds.rock_inventory_move,
     drop_sound = item_sounds.rock_inventory_move,
     stack_size = 1,
+    auto_recycle = false,
     weight = 50*kg,
   },
 
@@ -886,6 +896,9 @@ data:extend({
     sort_item_ingredients = false,
     --crafting_machine_tint = {primary = util.color("#48001e")},
     raise_on_crafted = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    hide_from_player_crafting = false, --only show this one
   },
 
 
@@ -914,6 +927,9 @@ data:extend({
     sort_item_ingredients = false,
     --crafting_machine_tint = {primary = util.color("#48001e")},
     raise_on_crafted = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    hide_from_player_crafting = true,
   },
 
   {
@@ -941,6 +957,9 @@ data:extend({
     sort_item_ingredients = false,
     --crafting_machine_tint = {primary = util.color("#48001e")},
     raise_on_crafted = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    hide_from_player_crafting = true,
   },
 
 
@@ -969,6 +988,9 @@ data:extend({
     sort_item_ingredients = false,
     --crafting_machine_tint = {primary = util.color("#48001e")},
     raise_on_crafted = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    hide_from_player_crafting = true,
   },
 
 
@@ -997,6 +1019,9 @@ data:extend({
     sort_item_ingredients = false,
     --crafting_machine_tint = {primary = util.color("#48001e")},
     raise_on_crafted = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    hide_from_player_crafting = true,
   },
 
 
@@ -1077,6 +1102,7 @@ data:extend({
     results = {{type = "item", name = "datacell-dna-raw", amount = 1, ignored_by_stats = 1}},
     allow_productivity = false,
     auto_recycle = false,
+    allow_decomposition = false,
     enabled = false,
     crafting_machine_tint = {primary = util.color("#48001e")},
   },
@@ -1099,6 +1125,7 @@ data:extend({
     },
     allow_productivity = false,
     auto_recycle = false,
+    allow_decomposition = false,
     enabled = false,
     hide_from_player_crafting = true,
     crafting_machine_tint = {primary = util.color("#48001e")},
@@ -1140,6 +1167,7 @@ data:extend({
     results = {{type = "item", name = "datacell-dna-sequenced", amount = 1, ignored_by_stats = 1}},
     allow_productivity = false,
     auto_recycle = false,
+    allow_decomposition = false,
     enabled = false,
     crafting_machine_tint = {primary = util.color("#ffeeee")},
   },
@@ -1162,6 +1190,7 @@ data:extend({
     },
     allow_productivity = false,
     auto_recycle = false,
+    allow_decomposition = false,
     enabled = false,
     hide_from_player_crafting = true,
     crafting_machine_tint = {primary = util.color("#ffeeee")},
@@ -1223,6 +1252,7 @@ data:extend({
     results = {{type = "item", name = "datacell-timewarp_data", amount = 1, ignored_by_stats = 1}},
     allow_productivity = false,
     auto_recycle = false,
+    allow_decomposition = false,
     enabled = false,
     crafting_machine_tint = {primary = util.color("#d699ff")},
   },
@@ -1245,6 +1275,7 @@ data:extend({
     },
     allow_productivity = false,
     auto_recycle = false,
+    allow_decomposition = false,
     enabled = false,
     hide_from_player_crafting = true,
     crafting_machine_tint = {primary = util.color("#d699ff")},
@@ -1350,6 +1381,7 @@ data:extend({
     enabled = false,
     surface_conditions = panglia_only,
     auto_recycle = false,
+    allow_decomposition = false,
     sort_item_ingredients = false,
   },
 
@@ -1370,6 +1402,7 @@ data:extend({
     random_tint_color = item_tints.iron_rust,
     spoil_ticks = 1 * minute,
     spoil_result = "spoilage",
+    auto_recycle = false,
     weight = 2*kg,
   },
 
@@ -1403,6 +1436,7 @@ data:extend({
     },
     surface_conditions = panglia_only,
     auto_recycle = false,
+    allow_decomposition = false,
     --result_is_always_fresh = true,
     --reset_freshness_on_craft = true,
   },
@@ -1420,6 +1454,7 @@ data:extend({
     random_tint_color = item_tints.iron_rust,
     spoil_ticks = 1 * minute,
     spoil_result = "spoilage",
+    auto_recycle = false,
     weight = 4*kg,
   },
 
@@ -1453,6 +1488,7 @@ data:extend({
     hide_from_player_crafting = true,
     surface_conditions = panglia_only,
     auto_recycle = false,
+    allow_decomposition = false,
     --result_is_always_fresh = true,
     --reset_freshness_on_craft = true,
   },
@@ -1470,6 +1506,7 @@ data:extend({
     random_tint_color = item_tints.iron_rust,
     spoil_ticks = 2 * minutes,
     spoil_result = "spoilage",
+    auto_recycle = false,
     weight = 50*kg,
   },
 
@@ -1502,6 +1539,7 @@ data:extend({
     hide_from_player_crafting = true,
     surface_conditions = panglia_only,
     auto_recycle = false,
+    allow_decomposition = false,
     --result_is_always_fresh = true,
     --reset_freshness_on_craft = true,
   },
@@ -1520,6 +1558,7 @@ data:extend({
     random_tint_color = item_tints.iron_rust,
     spoil_ticks = 2 * minutes,
     spoil_result = "spoilage",
+    auto_recycle = false,
     weight = 65*kg,
   },
   {
@@ -1536,6 +1575,7 @@ data:extend({
     random_tint_color = item_tints.iron_rust,
     spoil_ticks = 2 * minutes,
     spoil_result = "spoilage",
+    auto_recycle = false,
     weight = 65*kg,
   },
 
@@ -1576,7 +1616,8 @@ data:extend({
     allow_productivity = true,
     enabled = false,
     surface_conditions = panglia_only,
-    auto_recycle = false,
+    auto_recycle = true,
+    allow_decomposition = false,
     sort_item_ingredients = false,
   },
 
