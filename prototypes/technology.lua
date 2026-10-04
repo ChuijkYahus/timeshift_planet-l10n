@@ -513,10 +513,10 @@ data:extend({
     icon_size = 256,
     effects =
     {
-      {
-        type = "unlock-recipe",
-        recipe = "panglia_cloned_specimen_body_0"
-      },
+      --{
+      --  type = "unlock-recipe",
+      --  recipe = "panglia_cloned_specimen_body_0"
+      --},
     },
     prerequisites = {"panglia_collect_dna_fish", "panglia_collect_dna_biter", "panglia_collect_dna_demolisher", "panglia_collect_dna_pentapod",
                      "moshine-tech-processing-grid", "uranium-processing"},

@@ -781,6 +781,7 @@ data:extend({
   {
     type = "smoke-with-trigger",
     name = "biter_dna_sample_decomposition",
+    icon = icons .. "biter_dna_sample-waste.png",
     animation = {
       filename = entity .. "dna/biter_dna_sample_decomposition.png",
       flags = {"corpse-decay"},
@@ -801,6 +802,8 @@ data:extend({
     show_when_smoke_off = true,
     start_scale = 0.25,
     end_scale = 0.25,
+    hidden = true,
+    hidden_in_factoriopedia = true,
   },
 
 
@@ -838,6 +841,7 @@ data:extend({
             {
               type = "create-smoke",
               show_in_tooltip = false,
+              show_details_in_tooltip = false,
               entity_name = "biter_dna_sample_decomposition",
               initial_height = 0
             },
