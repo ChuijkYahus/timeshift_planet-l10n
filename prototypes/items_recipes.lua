@@ -37,6 +37,14 @@ data:extend({
   },
   {
     type = "recipe-category",
+    name = "dna_builder_1"
+  },
+  {
+    type = "recipe-category",
+    name = "dna_builder_2"
+  },
+  {
+    type = "recipe-category",
     name = "simulation_chamber"
   },
   {
@@ -91,6 +99,7 @@ data:extend({
     categories = {"metallurgy"},
     enabled = false,
     auto_recycle = false,
+    allow_decomposition = false,
     energy_required = 1 * beacon_multiplier,
     ingredients = {
       {type = "item", name = "panglia_igneous_rock", amount = 1}
@@ -144,13 +153,14 @@ data:extend({
   {
     type = "recipe",
     name = "panglia_panglite",
-    --icon = icons .. "panglia_panglite_multiplication.png",
+    icon = icons .. "panglia_panglite_multiplication.png",
     --subgroup = "panglia-processes",
     --order = "a[base]-cc",
     categories = {"smelting"},
     always_show_made_in = true,
     enabled = false,
     auto_recycle = false,
+    allow_decomposition = false,
     energy_required = 1 * beacon_multiplier,
     ingredients = {
       {type = "item", name = "panglia_panglite", amount = 5}
@@ -201,6 +211,7 @@ data:extend({
     always_show_made_in = true,
     enabled = false,
     auto_recycle = false,
+    allow_decomposition = false,
     energy_required = 10,
     ingredients = {
       {type = "item", name = "panglia_panglite", amount = 1},
@@ -240,6 +251,7 @@ data:extend({
     categories = {"electromagnetics", "centrifuging"},
     enabled = false,
     auto_recycle = false,
+    allow_decomposition = false,
     energy_required = 5 * beacon_multiplier,
     ingredients = {
       {type = "item", name = "panglia_panglite", amount = 40},
@@ -603,6 +615,7 @@ data:extend({
     show_amount_in_title = false,
     --always_show_made_in = true,
     auto_recycle = false,
+    allow_decomposition = false,
     surface_conditions = panglia_only,
   },
 
@@ -654,6 +667,7 @@ data:extend({
     enabled = false,
     surface_conditions = panglia_only,
     sort_item_ingredients = false,
+    allow_decomposition = false,
   },
   {
     type = "recipe",
@@ -684,6 +698,7 @@ data:extend({
     surface_conditions = panglia_only,
     sort_item_ingredients = false,
     auto_recycle = false,
+    allow_decomposition = false,
   },
 
   {
@@ -709,6 +724,7 @@ data:extend({
     --allow_inserter_overload = true,
     --overload_multiplier = 1000,
     auto_recycle = false,
+    allow_decomposition = false,
     --hidden = true,
     hide_from_player_crafting = true,
     hidden_in_factoriopedia = false,
@@ -747,6 +763,7 @@ data:extend({
     --allow_inserter_overload = true,
     --overload_multiplier = 1000,
     auto_recycle = false,
+    allow_decomposition = false,
     --hidden = true,
     hide_from_player_crafting = true,
     hidden_in_factoriopedia = false,
@@ -764,6 +781,7 @@ data:extend({
   {
     type = "smoke-with-trigger",
     name = "biter_dna_sample_decomposition",
+    icon = icons .. "biter_dna_sample-waste.png",
     animation = {
       filename = entity .. "dna/biter_dna_sample_decomposition.png",
       flags = {"corpse-decay"},
@@ -784,6 +802,8 @@ data:extend({
     show_when_smoke_off = true,
     start_scale = 0.25,
     end_scale = 0.25,
+    hidden = true,
+    hidden_in_factoriopedia = true,
   },
 
 
@@ -793,7 +813,6 @@ data:extend({
     icon = icons .. "biter_dna_sample.png",
     pictures =
     {
-
       { filename = icons .. "biter_dna_sample.png", size = 64, scale = 0.5 },
       { filename = icons .. "biter_dna_sample-1.png", size = 64, scale = 0.5 },
       { filename = icons .. "biter_dna_sample-2.png", size = 64, scale = 0.5 },
@@ -806,6 +825,7 @@ data:extend({
     drop_sound = space_age_item_sounds.agriculture_inventory_move,
     stack_size = 20,
     weight = 1*kg,
+    auto_recycle = false,
     spoil_ticks = 8 * minute,
     spoil_to_trigger_result =
     {
@@ -821,6 +841,7 @@ data:extend({
             {
               type = "create-smoke",
               show_in_tooltip = false,
+              show_details_in_tooltip = false,
               entity_name = "biter_dna_sample_decomposition",
               initial_height = 0
             },
@@ -851,6 +872,7 @@ data:extend({
     pick_sound = item_sounds.rock_inventory_move,
     drop_sound = item_sounds.rock_inventory_move,
     stack_size = 1,
+    auto_recycle = false,
     weight = 50*kg,
   },
 
@@ -886,6 +908,9 @@ data:extend({
     sort_item_ingredients = false,
     --crafting_machine_tint = {primary = util.color("#48001e")},
     raise_on_crafted = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    hide_from_player_crafting = false, --only show this one
   },
 
 
@@ -914,6 +939,9 @@ data:extend({
     sort_item_ingredients = false,
     --crafting_machine_tint = {primary = util.color("#48001e")},
     raise_on_crafted = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    hide_from_player_crafting = true,
   },
 
   {
@@ -941,6 +969,9 @@ data:extend({
     sort_item_ingredients = false,
     --crafting_machine_tint = {primary = util.color("#48001e")},
     raise_on_crafted = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    hide_from_player_crafting = true,
   },
 
 
@@ -969,6 +1000,9 @@ data:extend({
     sort_item_ingredients = false,
     --crafting_machine_tint = {primary = util.color("#48001e")},
     raise_on_crafted = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    hide_from_player_crafting = true,
   },
 
 
@@ -997,10 +1031,173 @@ data:extend({
     sort_item_ingredients = false,
     --crafting_machine_tint = {primary = util.color("#48001e")},
     raise_on_crafted = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    hide_from_player_crafting = true,
   },
 
 
 
+
+
+
+  {
+    type = "item",
+    name = "panglia_dna_candidate",
+    icon = icons .. "panglia_dna_candidate.png",
+    subgroup = "panglia-processes",
+    order = "c[cloning]-ff",
+    inventory_move_sound = space_age_item_sounds.agriculture_inventory_move,
+    pick_sound = space_age_item_sounds.agriculture_inventory_pickup,
+    drop_sound = space_age_item_sounds.agriculture_inventory_move,
+    stack_size = 50,
+    default_import_location = "panglia",
+    random_tint_color = item_tints.iron_rust,
+    spoil_ticks = 1 * minute,
+    spoil_result = "spoilage",
+    auto_recycle = false,
+    weight = 2*kg,
+  },
+  {
+    type = "recipe",
+    name = "panglia_dna_candidate",
+    categories = {"dna_builder_1"},
+    always_show_made_in = true,
+    enabled = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    energy_required = 2,
+    ingredients = {
+      {type = "fluid", name = "dna_raw_data", amount = 100},
+    },
+    results = {
+      {type = "item", name = "panglia_dna_candidate", amount = 1},
+    },
+    allow_productivity = true,
+    show_amount_in_title = false,
+    surface_conditions = panglia_only,
+    allow_quality = false,
+  },
+
+
+
+
+
+  {
+    type = "item",
+    name = "panglia_dna_validated",
+    icon = icons .. "panglia_dna_validated.png",
+    subgroup = "panglia-processes",
+    order = "z[base]-cd",
+    inventory_move_sound = item_sounds.metal_barrel_inventory_move,
+    pick_sound = item_sounds.metal_barrel_inventory_pickup,
+    drop_sound = item_sounds.metal_barrel_inventory_move,
+    stack_size = 50,
+    default_import_location = "panglia",
+    weight = 20*kg,
+    auto_recycle = false,
+  },
+  {
+    type = "recipe",
+    name = "panglia_cloned_specimen_body_1_trial",
+    icon = icons .. "panglia_cloned_specimen_body_1_recipe.png",
+    subgroup = "panglia-processes",
+    order = "c[cloning]-gg",
+    categories = {"simulation_chamber"},
+    energy_required = 30 * beacon_multiplier,
+    ingredients = {
+      {type = "item", name = "panglia_dna_candidate", amount = 1},
+    },
+    results = 
+    {
+      {type = "item", name = "panglia_dna_validated", amount = 1, shared_probability = {min = 0, max = 0.1}},
+      {type = "item", name = "panglia_cloned_specimen_body_1", amount = 1, shared_probability = {min = 0, max = 0.1}, always_fresh = true},
+      {type = "item", name = "spoilage", amount = 2, shared_probability = {min = 0.1, max = 1}, show_details_in_recipe_tooltip = false},
+    },
+    main_product = "panglia_dna_validated",
+    allow_productivity = false,
+    enabled = true,
+    crafting_machine_tint = {
+      primary = {r = 1, g = 1, b = 1, a = 1}, -- #ffa342ff
+      secondary = {r = 0, g = 0, b = 0, a = 0}, -- #ffb85fff
+      tertiary = {r = 0, g = 0, b = 0, a = 0}, -- #d9a892ff
+      quaternary = {r = 0, g = 0, b = 0, a = 0}, -- #ff7e45ff
+    },
+    surface_conditions = panglia_only,
+    auto_recycle = false,
+    allow_decomposition = false,
+    --result_is_always_fresh = true,
+    --reset_freshness_on_craft = true,
+  },
+  --[[{
+    type = "recipe",
+    name = "panglia_dna_validated",
+    icon = icons .. "panglia_dna_validation.png",
+    categories = {"cosmic_incubator"},
+    always_show_made_in = true,
+    enabled = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    energy_required = 1,
+    ingredients = {
+      {type = "item", name = "panglia_dna_candidate", amount = 1},
+    },
+    results = {
+      {type = "item", name = "panglia_dna_validated", amount = 1, shared_probability = {min = 0, max = 0.1}},
+      {type = "item", name = "spoilage", amount = 1, shared_probability = {min = 0.1, max = 1}},
+    },
+    allow_productivity = true,
+    show_amount_in_title = false,
+    surface_conditions = panglia_only,
+    allow_quality = false,
+  },]]
+
+  {
+    type = "recipe",
+    name = "panglia_dna_builder_make_phasetwo",
+    icon = icons .. "panglia_dna_builder_make_phasetwo.png",
+    categories = {"dna_builder_1"},
+    always_show_made_in = true,
+    enabled = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    energy_required = 1,
+    ingredients = {
+      {type = "item", name = "panglia_dna_validated", amount = 1},
+      {type = "fluid", name = "dna_raw_data", amount = 100},
+    },
+    results = {
+    },
+    allow_productivity = true,
+    show_amount_in_title = false,
+    surface_conditions = panglia_only,
+    allow_quality = false,
+    raise_on_crafted = true,
+  },
+
+
+
+  {
+    type = "recipe",
+    name = "panglia_cloned_specimen_body_0_dna_builder",
+    categories = {"dna_builder_2"},
+    always_show_made_in = true,
+    enabled = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    energy_required = 1,
+    ingredients = {
+      {type = "fluid", name = "dna_raw_data", amount = 1},
+    },
+    results = {
+      {type = "item", name = "panglia_cloned_specimen_body_0", amount = 1},
+    },
+    allow_productivity = true,
+    show_amount_in_title = false,
+    surface_conditions = panglia_only,
+    allow_quality = false,
+    raise_on_crafted = true,
+  },
 
 
 
@@ -1036,31 +1233,6 @@ data:extend({
     plant_result = "processing-grid-process-dna",
     weight = 0.5*kg,
   },
-  --[[
-  {
-    type = "recipe",
-    name = "datacell-dna-raw",
-    icon = datacellicons .. "datacell-dna-raw.png",
-    subgroup = "moshine-datacells",
-    order = "b[panglia]-bb",
-    categories = {"cloning"},
-    energy_required = 1 * beacon_multiplier,
-    ingredients = {
-      {type = "item", name = "datacell-empty", amount = 1},
-      --TODO add DNA source
-    },
-    results = 
-    {
-      {type = "item", name = "datacell-dna-raw", amount = 1, shared_probability = {min = 0, max = 0.01}},
-      {type = "item", name = "datacell-empty", amount = 1, shared_probability = {min = 0.01, max = 1}},
-    },
-    main_product = "datacell-dna-raw",
-    allow_productivity = true,
-    enabled = false,
-    crafting_machine_tint = {primary = util.color("#48001e")},
-  },
-]]
-
   {
     type = "recipe",
     name = "datacell-dna-raw",
@@ -1077,6 +1249,7 @@ data:extend({
     results = {{type = "item", name = "datacell-dna-raw", amount = 1, ignored_by_stats = 1}},
     allow_productivity = false,
     auto_recycle = false,
+    allow_decomposition = false,
     enabled = false,
     crafting_machine_tint = {primary = util.color("#48001e")},
   },
@@ -1099,13 +1272,11 @@ data:extend({
     },
     allow_productivity = false,
     auto_recycle = false,
+    allow_decomposition = false,
     enabled = false,
     hide_from_player_crafting = true,
     crafting_machine_tint = {primary = util.color("#48001e")},
   },
-
-
-
   {
     type = "item",
     name = "datacell-dna-sequenced",
@@ -1123,7 +1294,6 @@ data:extend({
     default_import_location = "panglia",
     weight = 0.5*kg
   },
-
   {
     type = "recipe",
     name = "datacell-dna-sequenced",
@@ -1140,6 +1310,7 @@ data:extend({
     results = {{type = "item", name = "datacell-dna-sequenced", amount = 1, ignored_by_stats = 1}},
     allow_productivity = false,
     auto_recycle = false,
+    allow_decomposition = false,
     enabled = false,
     crafting_machine_tint = {primary = util.color("#ffeeee")},
   },
@@ -1162,34 +1333,11 @@ data:extend({
     },
     allow_productivity = false,
     auto_recycle = false,
+    allow_decomposition = false,
     enabled = false,
     hide_from_player_crafting = true,
     crafting_machine_tint = {primary = util.color("#ffeeee")},
   },
-
-
-
-  --[[{
-    type = "recipe",
-    name = "cosmic-data-outsignal-creation",
-    icon = "__Moshine__/graphics/icons/data/cosmic-data-outsignal.png",
-    categories = {"data-processing"},
-    subgroup = "moshine-datacells",
-    order = "a[moshine]-da",
-    --hide_from_player_crafting = true,
-    energy_required = 0.5,
-    ingredients = {
-      {type = "fluid", name = "raw-data", amount = 150},
-      {type = "fluid", name = "solved-equation-data", amount = 40},
-      {type = "item", name = "space-science-pack", amount = 1},
-    },
-    results = {{type = "fluid", name = "cosmic-data-outsignal", amount = 1}},
-    allow_productivity = false,
-    auto_recycle = false,
-    enabled = false,
-    crafting_machine_tint = {primary = {197,8,181}}, --#260d7f
-  },]]
-
   {
     type = "item",
     name = "datacell-timewarp_data",
@@ -1223,6 +1371,7 @@ data:extend({
     results = {{type = "item", name = "datacell-timewarp_data", amount = 1, ignored_by_stats = 1}},
     allow_productivity = false,
     auto_recycle = false,
+    allow_decomposition = false,
     enabled = false,
     crafting_machine_tint = {primary = util.color("#d699ff")},
   },
@@ -1245,11 +1394,11 @@ data:extend({
     },
     allow_productivity = false,
     auto_recycle = false,
+    allow_decomposition = false,
     enabled = false,
     hide_from_player_crafting = true,
     crafting_machine_tint = {primary = util.color("#d699ff")},
   },
-
 })
 
 --log(serpent.block(data.raw.unit["big-wriggler-pentapod-premature"]))
@@ -1326,6 +1475,7 @@ data:extend({
 --    ██████  ██   ██ ██   ██ ██ ██   ████ ███████ 
 
 data:extend({
+  --[[
   {
     type = "recipe",
     name = "panglia_cloned_specimen_body_0",
@@ -1350,9 +1500,10 @@ data:extend({
     enabled = false,
     surface_conditions = panglia_only,
     auto_recycle = false,
+    allow_decomposition = false,
     sort_item_ingredients = false,
   },
-
+]]
 
 
 
@@ -1370,6 +1521,7 @@ data:extend({
     random_tint_color = item_tints.iron_rust,
     spoil_ticks = 1 * minute,
     spoil_result = "spoilage",
+    auto_recycle = false,
     weight = 2*kg,
   },
 
@@ -1403,6 +1555,7 @@ data:extend({
     },
     surface_conditions = panglia_only,
     auto_recycle = false,
+    allow_decomposition = false,
     --result_is_always_fresh = true,
     --reset_freshness_on_craft = true,
   },
@@ -1420,6 +1573,7 @@ data:extend({
     random_tint_color = item_tints.iron_rust,
     spoil_ticks = 1 * minute,
     spoil_result = "spoilage",
+    auto_recycle = false,
     weight = 4*kg,
   },
 
@@ -1453,6 +1607,7 @@ data:extend({
     hide_from_player_crafting = true,
     surface_conditions = panglia_only,
     auto_recycle = false,
+    allow_decomposition = false,
     --result_is_always_fresh = true,
     --reset_freshness_on_craft = true,
   },
@@ -1470,6 +1625,7 @@ data:extend({
     random_tint_color = item_tints.iron_rust,
     spoil_ticks = 2 * minutes,
     spoil_result = "spoilage",
+    auto_recycle = false,
     weight = 50*kg,
   },
 
@@ -1502,6 +1658,7 @@ data:extend({
     hide_from_player_crafting = true,
     surface_conditions = panglia_only,
     auto_recycle = false,
+    allow_decomposition = false,
     --result_is_always_fresh = true,
     --reset_freshness_on_craft = true,
   },
@@ -1520,6 +1677,7 @@ data:extend({
     random_tint_color = item_tints.iron_rust,
     spoil_ticks = 2 * minutes,
     spoil_result = "spoilage",
+    auto_recycle = false,
     weight = 65*kg,
   },
   {
@@ -1536,6 +1694,7 @@ data:extend({
     random_tint_color = item_tints.iron_rust,
     spoil_ticks = 2 * minutes,
     spoil_result = "spoilage",
+    auto_recycle = false,
     weight = 65*kg,
   },
 
@@ -1576,7 +1735,8 @@ data:extend({
     allow_productivity = true,
     enabled = false,
     surface_conditions = panglia_only,
-    auto_recycle = false,
+    auto_recycle = true,
+    allow_decomposition = false,
     sort_item_ingredients = false,
   },
 

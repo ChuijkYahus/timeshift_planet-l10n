@@ -95,19 +95,21 @@ glow_seq = {
 1,9,10,11,12,7,14,15,16,16,15,14,13,12,11,5,9,1,
 }
 
-local integration = {
-  layers =
-  {
+local function integration_graphics(num)
+  return {
+    layers =
     {
-      filename = entity .. "panglia_energy_roots/panglia_energy_roots_1_base.png",
-      width = 704,
-      height = 704,
-      repeat_count = 1,
-      line_length = 1,
-      scale = 0.5,
-    },
+      {
+        filename = entity .. "panglia_energy_roots/panglia_energy_roots_"..num.."_base.png",
+        width = 704,
+        height = 704,
+        repeat_count = 1,
+        line_length = 1,
+        scale = 0.5,
+      },
+    }
   }
-}
+end
 
 local multidir_anim = {
   animation = {
@@ -120,7 +122,7 @@ local multidir_anim = {
         frame_count = 16,
         line_length = 8,
         frame_sequence = glow_seq,
-        animation_speed = 1,
+        animation_speed = 0.2,
         repeat_count = 1,
         scale = 0.5,
         draw_as_glow = true,
@@ -249,10 +251,10 @@ data:extend({
       always_draw_covers = false,
       pipe_connections =
       {
-        { flow_direction = "input", direction = defines.direction.north, position = {0, -3} },
-        { flow_direction = "input", direction = defines.direction.east, position = {3, 0} },
-        { flow_direction = "input", direction = defines.direction.south, position = {0, 3} },
-        { flow_direction = "input", direction = defines.direction.west, position = {-3, 0} },
+        { flow_direction = "input", direction = defines.direction.north, position = {0, -3}}, --, hide_connection_info = true, 
+        { flow_direction = "input", direction = defines.direction.east, position = {3, 0}},
+        { flow_direction = "input", direction = defines.direction.south, position = {0, 3}},
+        { flow_direction = "input", direction = defines.direction.west, position = {-3, 0}},
       },
       draw_only_when_connected = true,
       production_type = "input",
@@ -273,7 +275,13 @@ data:extend({
       west = multidir_anim,
     },
     perceived_performance = {minimum = 0.1, maximum = 1},
-    integration_patch = integration,
+    integration_patch = {
+      north = integration_graphics("1"),
+      east = integration_graphics("2"),
+      south = integration_graphics("3"),
+      west = integration_graphics("4"),
+    },
+    integration_patch_render_layer = "ground-patch",
     smoke =
     {
       {
@@ -691,7 +699,7 @@ local function make_energy_roots_tesla_turret(num, seq)
                   repeat_count = 60,
                   scale = 0.5,
                   animation_speed = 0.15,
-                  draw_as_glow = true,
+                  draw_as_light = true,
                   blend_mode = "additive",
                 },
                 {
@@ -814,15 +822,15 @@ local function make_energy_roots_tesla_turret(num, seq)
   })
 end
 
-make_energy_roots_tesla_turret(1, {1,1,8,1,15,1,1,2,1,9,12,1,1,1,13,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,14,1,1,1,1,11,7,6,5,1,1,10,16,1,1,1,1,1,1,1,1,4,1,1,1,1,1,1,1})
-make_energy_roots_tesla_turret(2, {1,1,1,13,10,1,1,1,1,1,1,1,1,1,9,1,1,8,5,1,3,1,1,6,1,1,1,1,1,1,16,1,1,1,1,1,1,1,1,1,1,1,11,1,7,14,1,12,1,4,1,1,1,1,1,1,1,2,15,1})
-make_energy_roots_tesla_turret(3, {1,1,1,1,7,13,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,9,1,1,1,1,1,8,1,1,14,1,1,4,2,1,1,15,6,16,12,1,1,1,1,1,1,1,3,1,1,1,1,11,1,10,1})
-make_energy_roots_tesla_turret(4, {1,1,1,1,13,15,1,1,12,1,11,1,1,1,1,1,1,4,1,1,1,1,1,14,1,2,1,10,1,1,5,1,1,3,1,1,1,8,16,1,1,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,6,1,9})
-make_energy_roots_tesla_turret(5, {1,1,1,1,3,1,7,8,9,1,1,1,1,1,1,1,10,5,1,1,1,1,1,12,1,1,1,1,6,1,11,1,1,1,4,1,1,13,1,16,1,1,1,1,1,1,1,1,1,2,1,1,14,1,15,1,1,1,1,1})
-make_energy_roots_tesla_turret(6, {1,1,12,9,6,3,2,1,10,1,11,1,1,1,1,1,1,1,1,1,1,1,1,16,1,1,1,1,4,1,1,13,1,1,1,1,7,1,1,1,14,1,1,1,1,5,1,1,1,1,1,1,15,1,1,1,8,1,1,1})
-make_energy_roots_tesla_turret(7, {1,1,1,1,1,1,1,12,16,1,1,1,1,1,1,8,1,1,1,1,1,13,1,1,10,7,14,1,6,1,1,1,1,1,11,1,3,1,1,15,2,1,1,1,1,1,4,1,1,1,1,5,1,1,9,1,1,1,1,1})
-make_energy_roots_tesla_turret(8, {1,1,1,1,1,1,1,1,1,1,3,1,1,5,15,10,7,1,1,1,1,13,1,1,1,1,1,1,1,14,2,1,1,1,1,1,1,1,4,1,1,1,1,16,1,1,1,1,1,11,1,9,1,1,1,1,12,1,8,6})
-make_energy_roots_tesla_turret(9, {1,1,1,1,15,7,1,6,16,8,12,11,1,1,9,1,1,1,1,1,1,1,2,1,1,3,5,1,1,1,1,1,1,1,1,1,14,1,13,1,1,1,1,1,10,1,1,1,1,1,1,4,1,1,1,1,1,1,1,1})
+make_energy_roots_tesla_turret(1,  {1,1,8,1,15,1,1,2,1,9,12,1,1,1,13,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,14,1,1,1,1,11,7,6,5,1,1,10,16,1,1,1,1,1,1,1,1,4,1,1,1,1,1,1,1})
+make_energy_roots_tesla_turret(2,  {1,1,1,13,10,1,1,1,1,1,1,1,1,1,9,1,1,8,5,1,3,1,1,6,1,1,1,1,1,1,16,1,1,1,1,1,1,1,1,1,1,1,11,1,7,14,1,12,1,4,1,1,1,1,1,1,1,2,15,1})
+make_energy_roots_tesla_turret(3,  {1,1,1,1,7,13,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,9,1,1,1,1,1,8,1,1,14,1,1,4,2,1,1,15,6,16,12,1,1,1,1,1,1,1,3,1,1,1,1,11,1,10,1})
+make_energy_roots_tesla_turret(4,  {1,1,1,1,13,15,1,1,12,1,11,1,1,1,1,1,1,4,1,1,1,1,1,14,1,2,1,10,1,1,5,1,1,3,1,1,1,8,16,1,1,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,6,1,9})
+make_energy_roots_tesla_turret(5,  {1,1,1,1,3,1,7,8,9,1,1,1,1,1,1,1,10,5,1,1,1,1,1,12,1,1,1,1,6,1,11,1,1,1,4,1,1,13,1,16,1,1,1,1,1,1,1,1,1,2,1,1,14,1,15,1,1,1,1,1})
+make_energy_roots_tesla_turret(6,  {1,1,12,9,6,3,2,1,10,1,11,1,1,1,1,1,1,1,1,1,1,1,1,16,1,1,1,1,4,1,1,13,1,1,1,1,7,1,1,1,14,1,1,1,1,5,1,1,1,1,1,1,15,1,1,1,8,1,1,1})
+make_energy_roots_tesla_turret(7,  {1,1,1,1,1,1,1,12,16,1,1,1,1,1,1,8,1,1,1,1,1,13,1,1,10,7,14,1,6,1,1,1,1,1,11,1,3,1,1,15,2,1,1,1,1,1,4,1,1,1,1,5,1,1,9,1,1,1,1,1})
+make_energy_roots_tesla_turret(8,  {1,1,1,1,1,1,1,1,1,1,3,1,1,5,15,10,7,1,1,1,1,13,1,1,1,1,1,1,1,14,2,1,1,1,1,1,1,1,4,1,1,1,1,16,1,1,1,1,1,11,1,9,1,1,1,1,12,1,8,6})
+make_energy_roots_tesla_turret(9,  {1,1,1,1,15,7,1,6,16,8,12,11,1,1,9,1,1,1,1,1,1,1,2,1,1,3,5,1,1,1,1,1,1,1,1,1,14,1,13,1,1,1,1,1,10,1,1,1,1,1,1,4,1,1,1,1,1,1,1,1})
 make_energy_roots_tesla_turret(10, {1,1,4,13,1,1,1,1,1,1,10,1,1,15,1,1,1,6,1,16,1,14,1,1,1,9,1,1,1,1,1,1,1,1,1,8,2,7,11,1,1,1,1,1,5,12,1,1,1,3,1,1,1,1,1,1,1,1,1,1})
 make_energy_roots_tesla_turret(11, {1,1,1,1,4,1,1,11,1,1,1,7,1,1,1,1,1,8,1,1,12,1,1,1,16,1,6,3,1,1,1,13,15,1,9,2,1,1,1,1,1,1,5,1,1,1,1,1,1,10,1,1,1,1,14,1,1,1,1,1})
 make_energy_roots_tesla_turret(12, {1,1,14,1,6,1,1,11,1,1,10,1,12,9,1,1,1,1,7,1,1,1,1,1,1,1,3,1,1,1,16,8,1,1,4,1,13,2,1,1,1,15,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1})
