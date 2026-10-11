@@ -12,6 +12,30 @@ local seconds = 60
 local minutes = 60 * seconds
 
 
+local only_primary = {
+  primary = {r = 1, g = 1, b = 1, a = 1},
+  secondary = {r = 0, g = 0, b = 0, a = 0},
+  tertiary = {r = 0, g = 0, b = 0, a = 0},
+  quaternary = {r = 0, g = 0, b = 0, a = 0},
+}
+local only_secondary = {
+  primary = {r = 0, g = 0, b = 0, a = 0}, -- #ffa342ff
+  secondary = {r = 1, g = 1, b = 1, a = 1}, -- #ffb85fff
+  tertiary = {r = 0, g = 0, b = 0, a = 0}, -- #d9a892ff
+  quaternary = {r = 0, g = 0, b = 0, a = 0}, -- #ff7e45ff
+}
+local only_tertiary = {
+  primary = {r = 0, g = 0, b = 0, a = 0},
+  secondary = {r = 0, g = 0, b = 0, a = 0},
+  tertiary = {r = 1, g = 1, b = 1, a = 1},
+  quaternary = {r = 0, g = 0, b = 0, a = 0},
+}
+local only_quaternary = {
+  primary = {r = 0, g = 0, b = 0, a = 0}, -- #ffa342ff
+  secondary = {r = 0, g = 0, b = 0, a = 0}, -- #ffb85fff
+  tertiary = {r = 0, g = 0, b = 0, a = 0}, -- #d9a892ff
+  quaternary = {r = 1, g = 1, b = 1, a = 1}, -- #ff7e45ff
+}
 
 ------------------------------------------------------
 --------------------- SUB-GROUPS ---------------------
@@ -1038,6 +1062,32 @@ data:extend({
 
 
 
+  {
+    type = "recipe",
+    name = "panglia_dna_builder_make_phasetwo",
+    icon = icons .. "panglia_dna_builder_make_phasetwo.png",
+    order = "111",
+    categories = {"dna_builder_1"},
+    always_show_made_in = true,
+    enabled = true,
+    auto_recycle = false,
+    allow_decomposition = false,
+    energy_required = 10,
+    ingredients = {
+      {type = "item", name = "panglia_dna_validated", amount = 1},
+      --{type = "fluid", name = "dna_raw_data", amount = 100, temperature = 15},
+    },
+    results = {},
+    crafting_machine_tint = only_secondary,
+    allow_productivity = true,
+    show_amount_in_title = false,
+    surface_conditions = panglia_only,
+    allow_quality = false,
+    raise_on_crafted = true,
+    overload_multiplier = 1,
+    allow_inserter_overload = false,
+  },
+
 
 
 
@@ -1066,17 +1116,21 @@ data:extend({
     enabled = true,
     auto_recycle = false,
     allow_decomposition = false,
-    energy_required = 2,
+    energy_required = 1,
     ingredients = {
-      {type = "fluid", name = "dna_raw_data", amount = 100},
+      {type = "fluid", name = "dna_raw_data", amount = 5},
     },
     results = {
       {type = "item", name = "panglia_dna_candidate", amount = 1},
     },
+    crafting_machine_tint = only_primary,
     allow_productivity = true,
     show_amount_in_title = false,
     surface_conditions = panglia_only,
     allow_quality = false,
+    raise_on_crafted = true,
+    overload_multiplier = 1,
+    allow_inserter_overload = false,
   },
 
 
@@ -1104,28 +1158,24 @@ data:extend({
     subgroup = "panglia-processes",
     order = "c[cloning]-gg",
     categories = {"simulation_chamber"},
-    energy_required = 30 * beacon_multiplier,
+    energy_required = 1, --30 * beacon_multiplier,
     ingredients = {
       {type = "item", name = "panglia_dna_candidate", amount = 1},
     },
     results = 
     {
-      {type = "item", name = "panglia_dna_validated", amount = 1, shared_probability = {min = 0, max = 0.1}},
-      {type = "item", name = "panglia_cloned_specimen_body_1", amount = 1, shared_probability = {min = 0, max = 0.1}, always_fresh = true},
-      {type = "item", name = "spoilage", amount = 2, shared_probability = {min = 0.1, max = 1}, show_details_in_recipe_tooltip = false},
+      {type = "item", name = "panglia_dna_validated", amount = 1, shared_probability = {min = 0, max = 0.5}},
+      {type = "item", name = "panglia_cloned_specimen_body_1", amount = 1, shared_probability = {min = 0, max = 0.5}, always_fresh = true},
+      {type = "item", name = "spoilage", amount = 2, shared_probability = {min = 0.5, max = 1}, show_details_in_recipe_tooltip = false},
     },
     main_product = "panglia_dna_validated",
     allow_productivity = false,
     enabled = true,
-    crafting_machine_tint = {
-      primary = {r = 1, g = 1, b = 1, a = 1}, -- #ffa342ff
-      secondary = {r = 0, g = 0, b = 0, a = 0}, -- #ffb85fff
-      tertiary = {r = 0, g = 0, b = 0, a = 0}, -- #d9a892ff
-      quaternary = {r = 0, g = 0, b = 0, a = 0}, -- #ff7e45ff
-    },
+    crafting_machine_tint = only_primary,
     surface_conditions = panglia_only,
     auto_recycle = false,
     allow_decomposition = false,
+    --raise_on_crafted = true,
     --result_is_always_fresh = true,
     --reset_freshness_on_craft = true,
   },
@@ -1152,34 +1202,29 @@ data:extend({
     allow_quality = false,
   },]]
 
+
+
+
   {
-    type = "recipe",
-    name = "panglia_dna_builder_make_phasetwo",
-    icon = icons .. "panglia_dna_builder_make_phasetwo.png",
-    categories = {"dna_builder_1"},
-    always_show_made_in = true,
-    enabled = true,
+    type = "item",
+    name = "panglia_cloned_specimen_body_0",
+    icon = icons .. "panglia_cloned_specimen_body_0.png",
+    subgroup = "panglia-processes",
+    order = "c[cloning]-ff",
+    inventory_move_sound = space_age_item_sounds.agriculture_inventory_move,
+    pick_sound = space_age_item_sounds.agriculture_inventory_pickup,
+    drop_sound = space_age_item_sounds.agriculture_inventory_move,
+    stack_size = 50,
+    default_import_location = "panglia",
+    random_tint_color = item_tints.iron_rust,
+    spoil_ticks = 1 * minute,
+    spoil_result = "spoilage",
     auto_recycle = false,
-    allow_decomposition = false,
-    energy_required = 1,
-    ingredients = {
-      {type = "item", name = "panglia_dna_validated", amount = 1},
-      {type = "fluid", name = "dna_raw_data", amount = 100},
-    },
-    results = {
-    },
-    allow_productivity = true,
-    show_amount_in_title = false,
-    surface_conditions = panglia_only,
-    allow_quality = false,
-    raise_on_crafted = true,
+    weight = 2*kg,
   },
-
-
-
   {
     type = "recipe",
-    name = "panglia_cloned_specimen_body_0_dna_builder",
+    name = "panglia_cloned_specimen_body_0",
     categories = {"dna_builder_2"},
     always_show_made_in = true,
     enabled = true,
@@ -1187,16 +1232,19 @@ data:extend({
     allow_decomposition = false,
     energy_required = 1,
     ingredients = {
-      {type = "fluid", name = "dna_raw_data", amount = 1},
+      {type = "fluid", name = "dna_raw_data", amount = 100},
     },
     results = {
-      {type = "item", name = "panglia_cloned_specimen_body_0", amount = 1},
+      {type = "item", name = "panglia_cloned_specimen_body_0", amount = 5},
     },
+    crafting_machine_tint = only_primary,
     allow_productivity = true,
     show_amount_in_title = false,
     surface_conditions = panglia_only,
     allow_quality = false,
     raise_on_crafted = true,
+    overload_multiplier = 1,
+    allow_inserter_overload = false,
   },
 
 
@@ -1504,27 +1552,6 @@ data:extend({
     sort_item_ingredients = false,
   },
 ]]
-
-
-
-  {
-    type = "item",
-    name = "panglia_cloned_specimen_body_0",
-    icon = icons .. "panglia_cloned_specimen_body_0.png",
-    subgroup = "panglia-processes",
-    order = "c[cloning]-ff",
-    inventory_move_sound = space_age_item_sounds.agriculture_inventory_move,
-    pick_sound = space_age_item_sounds.agriculture_inventory_pickup,
-    drop_sound = space_age_item_sounds.agriculture_inventory_move,
-    stack_size = 50,
-    default_import_location = "panglia",
-    random_tint_color = item_tints.iron_rust,
-    spoil_ticks = 1 * minute,
-    spoil_result = "spoilage",
-    auto_recycle = false,
-    weight = 2*kg,
-  },
-
 
 
 

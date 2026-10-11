@@ -6,7 +6,7 @@ local panglia_only = {{property = "pressure", min = 1401, max = 1401}}
 local size = 6
 local pipedistance = 0.5
 local pipedistance2 = 0.5
-local animspeed = 0.3
+local animspeed = 0.2
 
 local soundspath = "__panglia_planet_assets__/sounds/"
 
@@ -69,270 +69,216 @@ local pipe_connectors = {
   },
 }
 
-
-local graphicsset = 
+local running_anim = 
 {
-  animation_progress = 0.5,
-  always_draw_idle_animation = true,
-  states =
+  name = "running_anim",
+  constant_speed = true,
+  always_draw = true,
+  draw_in_states = {"working", "idle"},
+  frame_based_on_shift_animation_progress = true,
+  render_layer = "object",
+  secondary_draw_order = -10,
+  animation = 
   {
+    layers = 
     {
-      name = "idle",
-      duration = 1,
-      next_active = "working",
-      next_inactive = "idle",
-    },
-    {
-      name = "working",
-      duration = 100,
-      next_active = "working",
-      next_inactive = "idle",
-    },
-  },
-  working_visualisations =
-  {
-    {
-      effect = "uranium-glow",
-      render_layer = "item-in-inserter-hand",
-      draw_in_states = {"working"},
-      always_draw = true,
-      fadeout = true,
-      light = {intensity = 0.5, size = 17, shift = {0, 0}, color = util.color("#d17849")}
-    },
-    {
-      name = "running_anim",
-      constant_speed = true,
-      always_draw = true,
-      draw_in_states = {"working", "idle"},
-      frame_based_on_shift_animation_progress = true,
-      render_layer = "object",
-      secondary_draw_order = -10,
-      animation = 
       {
-        layers = 
-        {
-          {
-            animation_speed = 0.5,
-            scale = 0.5,
-            filename = entity .. "/quantum-stabilizer-hr-animation-1.png",
-            blend_mode = "normal",
-            width = 410,
-            height = 410,
-            line_length = 8,
-            lines_per_file = 13,
-            frame_count = 100,
-            shift = util.by_pixel_hr(0, 0),
-          },
-        },
+        animation_speed = animspeed,
+        scale = 0.5,
+        filename = entity .. entityname .. "_anim.png",
+        blend_mode = "normal",
+        width = 366,
+        height = 404,
+        line_length = 8,
+        lines_per_file = 4,
+        frame_count = 32,
+        shift = util.by_pixel_hr(201, -56),
       },
-    },
-    {
-      name = "running_light",
-      constant_speed = true,
-      always_draw = true,
-      draw_in_states = {"working"},
-      fadeout = true,
-      effect = "flicker",
-      frame_based_on_shift_animation_progress = true,
-      render_layer = "object",
-      secondary_draw_order = -9,
-      animation = 
       {
-        layers = 
-        {
-          {
-            animation_speed = 0.5,
-            scale = 0.5,
-            filename = entity .. "/quantum-stabilizer-hr-emission-1.png",
-            blend_mode = "additive",
-            width = 410,
-            height = 410,
-            line_length = 8,
-            lines_per_file = 13,
-            frame_count = 100,
-            shift = util.by_pixel_hr(0, 0),
-            draw_as_glow = true,
-          },
-        },
-      },
-    },
-    --[[{
-      name = "dna_helix",
-      constant_speed = false,
-      always_draw = true,
-      draw_in_states = {"working"},
-      fadeout = true,
-      effect = "flicker",
-      frame_based_on_shift_animation_progress = false,
-      apply_recipe_tint = "secondary",
-      render_layer = "object",
-      secondary_draw_order = -7,
-      animation = 
-      {
-        layers = 
-        {
-          {
-            animation_speed = 1,
-            scale = 0.5,
-            filename = entity .. entityname .. "_dna_helix.png",
-            blend_mode = "additive",
-            width = 250,
-            height = 250,
-            line_length = 13,
-            lines_per_file = 3,
-            frame_count = 39,
-            shift = util.by_pixel_hr(0, -83),
-            draw_as_glow = true,
-          },
-        },
-      },
-    },]]
-
-    {
-      name = "base",
-      constant_speed = true,
-      always_draw = true,
-      draw_in_states = {"working", "idle"},
-      --frame_based_on_shift_animation_progress = true,
-      render_layer = "object",
-      secondary_draw_order = 0,
-      animation = 
-      {
-        layers =
-        {
-          {
-            filename = entity .. entityname .. "_base.png",
-            width = 512,
-            height = 512,
-            shift = util.by_pixel_hr(0, 0),
-            animation_speed = animspeed,
-            scale = 0.5,
-          },
-          {
-            filename = entity .. entityname .. "_shadow.png",
-            width = 512,
-            height = 512,
-            shift = util.by_pixel_hr(0, 0),
-            animation_speed = animspeed,
-            scale = 0.5,
-            draw_as_shadow = true,
-          },
-        }
-      },
-    },
-
-
-
-
-    {
-      name = "running_light_over",
-      constant_speed = true,
-      always_draw = true,
-      draw_in_states = {"working"},
-      fadeout = true,
-      effect = "flicker",
-      frame_based_on_shift_animation_progress = false,
-      render_layer = "object",
-      secondary_draw_order = 8,
-      animation = 
-      {
-        layers = 
-        {
-          {
-            animation_speed = 0.5,
-            scale = 0.5,
-            filename = entity .. "panglia_dna_builder_light.png",
-            blend_mode = "additive",
-            width = 512,
-            height = 512,
-            line_length = 1,
-            lines_per_file = 1,
-            repeat_count = 1,
-            shift = util.by_pixel_hr(0, 0),
-            draw_as_glow = true,
-          },
-        },
-      },
-    },
-    {
-      name = "armilory_animated",
-      constant_speed = false,
-      always_draw = true,
-      draw_in_states = {"working", "idle"},
-      frame_based_on_shift_animation_progress = true,
-      render_layer = "object",
-      secondary_draw_order = 9,
-      animation = 
-      {
-        layers = 
-        {
-          {
-            animation_speed = 0.1,
-            scale = 0.5,
-            filename = entity .. entityname .. "_armilory.png",
-            width = 256,
-            height = 256,
-            line_length = 8,
-            lines_per_file = 3,
-            frame_count = 24,
-            repeat_count = 2,
-            shift = util.by_pixel_hr(2, -162),
-          },
-        },
-      },
-    },
-    
-    {
-      name = "armilory_animated_light",
-      constant_speed = false,
-      always_draw = true,
-      draw_in_states = {"working"},
-      fadeout = true,
-      frame_based_on_shift_animation_progress = true,
-      render_layer = "object",
-      secondary_draw_order = 10,
-      animation = 
-      {
-        layers = 
-        {
-          {
-            animation_speed = 0.1,
-            scale = 0.5,
-            filename = entity .. entityname .. "_armilory_light.png",
-            width = 256,
-            height = 256,
-            line_length = 8,
-            lines_per_file = 3,
-            frame_count = 24,
-            repeat_count = 2,
-            shift = util.by_pixel_hr(2, -162),
-            draw_as_glow = true,
-            blend_mode = "additive-soft",
-          },
-        },
+        animation_speed = animspeed,
+        scale = 0.5,
+        filename = entity .. entityname .. "_anim_light.png",
+        blend_mode = "normal",
+        width = 366,
+        height = 404,
+        line_length = 8,
+        lines_per_file = 4,
+        frame_count = 32,
+        shift = util.by_pixel_hr(201, -56),
+        draw_as_glow = true,
+        blend_mode = "additive",
       },
     },
   },
-  water_reflection =
-  {
-    pictures =
-    {
-      filename = entity .. entityname .. "_water_reflection.png",
-      width = 51,
-      height = 51,
-      variation_count = 1,
-      scale = 5,
-      shift = util.by_pixel_hr(0, 157)
-    }
-  },
-
-  frozen_patch = {
-    filename = entity .. entityname .. "_frozen.png",
-    width = 512,
-    height = 512,
-    scale = 0.5,
-  }
 }
+
+
+local screen_anim_base = function(num)
+  return
+  {
+    apply_recipe_tint = "primary",
+    name = "screen",
+    constant_speed = false,
+    always_draw = true,
+    draw_in_states = {"working"},
+    frame_based_on_shift_animation_progress = true,
+    render_layer = "object",
+    secondary_draw_order = 9,
+    animation = 
+    {
+      layers = 
+      {
+        {
+          animation_speed = animspeed,
+          scale = 0.5,
+          filename = entity .. entityname .. "_screen_anim".. num ..".png",
+          width = 128,
+          height = 192,
+          line_length = 10,
+          lines_per_file = 5,
+          frame_count = 50,
+          shift = util.by_pixel_hr(121, 45),
+          draw_as_glow = true,
+        },
+      },
+    },
+  }
+end
+
+local screen_anim_when_changing = 
+{
+  apply_recipe_tint = "secondary",
+  name = "screen",
+  constant_speed = false,
+  always_draw = true,
+  draw_in_states = {"working"},
+  frame_based_on_shift_animation_progress = true,
+  render_layer = "object",
+  secondary_draw_order = 9,
+  animation = 
+  {
+    layers = 
+    {
+      {
+        animation_speed = 0.2,
+        scale = 0.5,
+        filename = entity .. entityname .. "_screen_anim5.png",
+        width = 128,
+        height = 192,
+        line_length = 10,
+        lines_per_file = 5,
+        frame_count = 50,
+        shift = util.by_pixel_hr(121, 45),
+        draw_as_glow = true,
+      },
+    },
+  },
+}
+
+local base_image = function(num)
+  return 
+  {
+    name = "base",
+    constant_speed = true,
+    always_draw = true,
+    draw_in_states = {"working", "idle"},
+    --frame_based_on_shift_animation_progress = true,
+    render_layer = "object",
+    secondary_draw_order = 0,
+    animation = 
+    {
+      layers =
+      {
+        {
+          filename = entity .. entityname .. "_base_" .. num ..".png",
+          width = 512,
+          height = 512,
+          shift = util.by_pixel_hr(0, 0),
+          animation_speed = animspeed,
+          scale = 0.5,
+        },
+        {
+          filename = entity .. entityname .. "_light_" .. num ..".png",
+          width = 512,
+          height = 512,
+          shift = util.by_pixel_hr(0, 0),
+          animation_speed = animspeed,
+          scale = 0.5,
+          draw_as_glow = true,
+          blend_mode = "additive",
+        },
+        {
+          filename = entity .. entityname .. "_shadow.png",
+          width = 512,
+          height = 512,
+          shift = util.by_pixel_hr(0, 0),
+          animation_speed = animspeed,
+          scale = 0.5,
+          draw_as_shadow = true,
+        },
+      }
+    },
+  }
+end
+
+
+local graphicsset = function(num)
+  local visu = nil
+  if num == 1 then
+    visu = 
+    {
+      running_anim,
+      base_image(1),
+      screen_anim_base(1),
+      screen_anim_when_changing,
+    }
+  else
+    visu = 
+    {
+      running_anim,
+      base_image(2),
+      screen_anim_base(2),
+    }
+  end
+
+  return
+  {
+    animation_progress = 0.5,
+    always_draw_idle_animation = true,
+    states =
+    {
+      {
+        name = "idle",
+        duration = 1,
+        next_active = "working",
+        next_inactive = "idle",
+      },
+      {
+        name = "working",
+        duration = 50,
+        next_active = "working",
+        next_inactive = "idle",
+      },
+    },
+    working_visualisations = visu,
+    water_reflection =
+    {
+      pictures =
+      {
+        filename = entity .. entityname .. "_water_reflection.png",
+        width = 51,
+        height = 51,
+        variation_count = 1,
+        scale = 5,
+        shift = util.by_pixel_hr(0, 157)
+      }
+    },
+  }
+end
+
+
+
+
 
 --    ██ ████████ ███████ ███    ███ 
 --    ██    ██    ██      ████  ████ 
@@ -413,6 +359,7 @@ data:extend({
 --    ██      ██   ██ ██   ██ ███████ ███████      ██ 
 
   {
+    --type = "furnace",
     type = "furnace",
     name = entityname,
     icon = "__panglia_planet__/graphics/icons/panglia_dna_builder.png",
@@ -421,18 +368,19 @@ data:extend({
     crafting_categories = {"dna_builder_1"},
     max_health = 300,
     corpse = entityname .. "-remnants",
+    surface_conditions = panglia_only,
     dying_explosion = "assembling-machine-1-explosion",
     show_recipe_icon = false,
     icon_draw_specification = {shift = {0, 0}, scale = 1},
     resistances = {},
-    result_inventory_size = 1,
+    result_inventory_size = 2,
     source_inventory_size = 1,
     fluid_boxes =
     {
       {
         production_type = "input",
         pipe_picture = pipe_connectors,
-        volume = 20000,
+        volume = 100,
         pipe_connections = {
           {flow_direction = "input", direction = defines.direction.west, position = {-((size/2)-0.5), pipedistance}, connection_category = "data"},
           {flow_direction = "input", direction = defines.direction.west, position = {-((size/2)-0.5), -pipedistance}, connection_category = "data"},
@@ -441,10 +389,10 @@ data:extend({
         render_layer = "object",
         max_pipeline_extent = 1000000,
       },
-      {
+      --[[{
         production_type = "output",
         pipe_picture = pipe_connectors,
-        volume = 20000,
+        volume = 100,
         pipe_connections = {
           {flow_direction = "output", direction = defines.direction.east, position = {((size/2)-0.5), pipedistance}, connection_category = "data"},
           {flow_direction = "output", direction = defines.direction.east, position = {((size/2)-0.5), -pipedistance}, connection_category = "data"},
@@ -452,7 +400,7 @@ data:extend({
         secondary_draw_orders = {east = -12, west = -12, north = -12, south = 4},
         render_layer = "object",
         max_pipeline_extent = 1000000,
-      },
+      },]]
     },
     use_mirroring = true,
     collision_box = {{-((size/2)-0.3), -((size/2)-0.3)}, {((size/2)-0.3), ((size/2)-0.3)}},
@@ -471,7 +419,7 @@ data:extend({
       }
     ),
     alert_icon_shift = util.by_pixel(0, 0),
-    graphics_set = graphicsset,
+    graphics_set = graphicsset(1),
     --graphics_set_flipped  = graphicsset,
     match_animation_speed_to_activity = true,
     
@@ -487,7 +435,7 @@ data:extend({
       drain = "1kW",
     },
     energy_usage = "30kW",
-    heating_energy = "200kW",
+    --heating_energy = "200kW",
     module_slots = 2,
     allowed_effects = {"speed", "consumption", "pollution", "productivity"},
     effect_receiver = {uses_module_effects = true, uses_beacon_effects = true, uses_surface_effects = true},
@@ -521,6 +469,8 @@ data:extend({
 
   {
     type = "furnace",
+    --type = "assembling-machine",
+    fixed_recipe = "panglia_cloned_specimen_body_0",
     name = entityname2,
     icon = "__panglia_planet__/graphics/icons/panglia_dna_builder.png",
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
@@ -528,18 +478,19 @@ data:extend({
     crafting_categories = {"dna_builder_2"},
     max_health = 300,
     corpse = entityname .. "-remnants",
+    surface_conditions = panglia_only,
     dying_explosion = "assembling-machine-1-explosion",
     show_recipe_icon = false,
     icon_draw_specification = {shift = {0, 0}, scale = 1},
     resistances = {},
-    result_inventory_size = 1,
+    result_inventory_size = 2,
     source_inventory_size = 1,
     fluid_boxes =
     {
       {
         production_type = "input",
         pipe_picture = pipe_connectors,
-        volume = 20000,
+        volume = 100,
         pipe_connections = {
           {flow_direction = "input", direction = defines.direction.west, position = {-((size/2)-0.5), pipedistance}, connection_category = "data"},
           {flow_direction = "input", direction = defines.direction.west, position = {-((size/2)-0.5), -pipedistance}, connection_category = "data"},
@@ -548,10 +499,10 @@ data:extend({
         render_layer = "object",
         max_pipeline_extent = 1000000,
       },
-      {
+      --[[{
         production_type = "output",
         pipe_picture = pipe_connectors,
-        volume = 20000,
+        volume = 100,
         pipe_connections = {
           {flow_direction = "output", direction = defines.direction.east, position = {((size/2)-0.5), pipedistance}, connection_category = "data"},
           {flow_direction = "output", direction = defines.direction.east, position = {((size/2)-0.5), -pipedistance}, connection_category = "data"},
@@ -559,7 +510,7 @@ data:extend({
         secondary_draw_orders = {east = -12, west = -12, north = -12, south = 4},
         render_layer = "object",
         max_pipeline_extent = 1000000,
-      },
+      },]]
     },
     use_mirroring = true,
     collision_box = {{-((size/2)-0.3), -((size/2)-0.3)}, {((size/2)-0.3), ((size/2)-0.3)}},
@@ -578,7 +529,7 @@ data:extend({
       }
     ),
     alert_icon_shift = util.by_pixel(0, 0),
-    graphics_set = graphicsset,
+    graphics_set = graphicsset(2),
     --graphics_set_flipped  = graphicsset,
     match_animation_speed_to_activity = true,
     
@@ -594,7 +545,7 @@ data:extend({
       drain = "1kW",
     },
     energy_usage = "30kW",
-    heating_energy = "200kW",
+    --heating_energy = "200kW",
     module_slots = 2,
     allowed_effects = {"speed", "consumption", "pollution", "productivity"},
     effect_receiver = {uses_module_effects = true, uses_beacon_effects = true, uses_surface_effects = true},

@@ -1,8 +1,15 @@
 ---------------------------------------------------------------------------------------------------
-Version: 0.7.3
+Version: 0.8.0
 Date: 2026-
   Bugfixes:
     - Fixed missing key and icon for biter flesh residues
+  Graphics:
+    - Some icons reworked
+    - Planet backdrop reworked (thanks Hanodest for the great tool)
+    - Modified map colors
+  Locale:
+    - Changed name of Branbalite/branbalite slurry into Gliate tree/Gliate leaves/Gliatine (Easier to memorize since it's in the name of the planet)
+    - Changed and added some descriptions
 ---------------------------------------------------------------------------------------------------
 Version: 0.7.2
 Date: 2026-09-30

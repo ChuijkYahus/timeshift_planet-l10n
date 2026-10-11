@@ -14,6 +14,15 @@ if settings.startup["moshine-data-colors"] and settings.startup["moshine-data-co
   if data.raw.item["datacell-timewarp_data"] then
     data.raw.item["datacell-timewarp_data"].localised_name = {"item-name.datacell-timewarp_data_nocolor"}
   end
+  if data.raw.item["panglia_dna_candidate"] then
+    data.raw.item["panglia_dna_candidate"].localised_name = {"item-name.panglia_dna_candidate_nocolor"}
+  end
+  if data.raw.item["panglia_dna_validated"] then
+    data.raw.item["panglia_dna_validated"].localised_name = {"item-name.panglia_dna_validated_nocolor"}
+  end
+  if data.raw.item["panglia_cloned_specimen_body_0"] then
+    data.raw.item["panglia_cloned_specimen_body_0"].localised_name = {"item-name.panglia_cloned_specimen_body_0_nocolor"}
+  end
 --recipe
   if data.raw.recipe["datacell-remove-timewarp_data"] then
     data.raw.recipe["datacell-remove-timewarp_data"].localised_name = {"recipe-name.datacell-remove-timewarp_data_nocolor"}
