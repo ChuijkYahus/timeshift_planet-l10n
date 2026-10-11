@@ -469,7 +469,7 @@ plant.agricultural_tower_tint =
   secondary = {109, 169, 181,255}, -- #885289ff
 }
 plant.growth_ticks = 2 * minutes
-plant.map_color = {45,207,235,230}
+plant.map_color = util.color("#4da9ff88")
 
 plant.factoriopedia_simulation = 
 {

@@ -231,7 +231,7 @@ data:extend({
       has_starting_area_placement = true,
       regular_rq_factor_multiplier = 5
     },
-    map_color = {1, 1, 0},
+    map_color = util.color("#03d1d1"),
   },
   {
     type = "trivial-smoke",
@@ -693,6 +693,7 @@ local function make_energy_roots_tesla_turret(num, seq)
         }
       },
       call_for_help_radius = 10,
+      map_color = util.color("#03d1d1"),
     },
 
 
