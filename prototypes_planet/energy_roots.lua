@@ -140,114 +140,21 @@ data:extend({
     name = "panglia_energy_roots",
     icon = icons .. "panglia_energy_roots.png",
     flags = {"placeable-neutral","player-creation","not-deconstructable","not-blueprintable","not-flammable","no-automated-item-removal","no-copy-paste","not-upgradable","not-in-kill-statistics"},
-    --minable = {mining_time = 0.3, result = "steam-engine"},
     max_health = 400000,
     corpse = "steam-engine-remnants",
     dying_explosion = "steam-engine-explosion",
-    --alert_icon_shift = util.by_pixel(0, -12),
-    --alert_icon_scale = 0,
     effectivity = 40000,
     fluid_usage_per_tick = 0.1,
     allow_copy_paste = false,
     burns_fluid = true,
-
     maximum_temperature = 165,
-    --[[resistances =
-    {
-      {
-        type = "fire",
-        percent = 70
-      },
-      {
-        type = "impact",
-        percent = 30
-      }
-    },]]
-    --fast_replaceable_group = "steam-engine",
     collision_box = {{-3.2, -3.2}, {3.2, 3.2}},
     selection_box = {{-3.5, -3.5}, {3.5, 3.5}},
     damaged_trigger_effect = hit_effects.entity(),
     fluid_box =
     {
       volume = 200,
-      --[[pipe_picture = {
-        north =
-        {
-          filename = entity .. "panglia_energy_roots/panglia_energy_roots-pipe-N.png",
-          priority = "extra-high",
-          width = 128,
-          height = 128,
-          shift = util.by_pixel(0, 32),
-          scale = 0.5
-        },
-        east =
-        {
-          filename = entity .. "panglia_energy_roots/panglia_energy_roots-pipe-E.png",
-          priority = "extra-high",
-          width = 128,
-          height = 128,
-          shift = util.by_pixel(-32, 0),
-          scale = 0.5
-        },
-        south =
-        {
-          filename = entity .. "panglia_energy_roots/panglia_energy_roots-pipe-S.png",
-          priority = "extra-high",
-          width = 128,
-          height = 128,
-          shift = util.by_pixel(0, -32),
-          scale = 0.5
-        },
-        west =
-        {
-          filename = entity .. "panglia_energy_roots/panglia_energy_roots-pipe-W.png",
-          priority = "extra-high",
-          width = 128,
-          height = 128,
-          shift = util.by_pixel(32, 0),
-          scale = 0.5
-        }
-      },]]
-      --[[pipe_picture = {
-        north =
-        {
-          filename = entity .. "panglia_energy_roots/panglia_energy_roots-pipe-N.png",
-          priority = "extra-high",
-          width = 128,
-          height = 128,
-          shift = util.by_pixel(0, 64),
-          scale = 0.5
-        },
-        east =
-        {
-          filename = entity .. "panglia_energy_roots/panglia_energy_roots-pipe-E.png",
-          priority = "extra-high",
-          width = 128,
-          height = 128,
-          shift = util.by_pixel(-64, 0),
-          scale = 0.5
-        },
-        south =
-        {
-          filename = entity .. "panglia_energy_roots/panglia_energy_roots-pipe-S.png",
-          priority = "extra-high",
-          width = 128,
-          height = 128,
-          shift = util.by_pixel(0, -64),
-          scale = 0.5
-        },
-        west =
-        {
-          filename = entity .. "panglia_energy_roots/panglia_energy_roots-pipe-W.png",
-          priority = "extra-high",
-          width = 128,
-          height = 128,
-          shift = util.by_pixel(64, 0),
-          scale = 0.5
-        }
-      },]]
       pipe_picture = pipe_picture,
-      --pipe_covers = pipecoverspictures(),
       always_draw_covers = false,
       pipe_connections =
       {
