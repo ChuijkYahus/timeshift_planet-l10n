@@ -1069,7 +1069,7 @@ data:extend({
     order = "111",
     categories = {"dna_builder_1"},
     always_show_made_in = true,
-    enabled = true,
+    enabled = false,
     auto_recycle = false,
     allow_decomposition = false,
     energy_required = 10,
@@ -1113,7 +1113,7 @@ data:extend({
     name = "panglia_dna_candidate",
     categories = {"dna_builder_1"},
     always_show_made_in = true,
-    enabled = true,
+    enabled = false,
     auto_recycle = false,
     allow_decomposition = false,
     energy_required = 1,
@@ -1170,7 +1170,7 @@ data:extend({
     },
     main_product = "panglia_dna_validated",
     allow_productivity = false,
-    enabled = true,
+    enabled = false,
     crafting_machine_tint = only_primary,
     surface_conditions = panglia_only,
     auto_recycle = false,
@@ -1232,7 +1232,7 @@ data:extend({
     allow_decomposition = false,
     energy_required = 1,
     ingredients = {
-      {type = "fluid", name = "dna_raw_data", amount = 100},
+      {type = "fluid", name = "panglia_branbalite_slurry", amount = 15},
     },
     results = {
       {type = "item", name = "panglia_cloned_specimen_body_0", amount = 5},
@@ -1574,12 +1574,7 @@ data:extend({
     main_product = "panglia_cloned_specimen_body_1",
     allow_productivity = false,
     enabled = false,
-    crafting_machine_tint = {
-      primary = {r = 1, g = 1, b = 1, a = 1}, -- #ffa342ff
-      secondary = {r = 0, g = 0, b = 0, a = 0}, -- #ffb85fff
-      tertiary = {r = 0, g = 0, b = 0, a = 0}, -- #d9a892ff
-      quaternary = {r = 0, g = 0, b = 0, a = 0}, -- #ff7e45ff
-    },
+    crafting_machine_tint = only_primary,
     surface_conditions = panglia_only,
     auto_recycle = false,
     allow_decomposition = false,
@@ -1624,12 +1619,7 @@ data:extend({
     main_product = "panglia_cloned_specimen_body_2",
     allow_productivity = true,
     enabled = false,
-    crafting_machine_tint = {
-      primary = {r = 0, g = 0, b = 0, a = 0},
-      secondary = {r = 0, g = 0, b = 0, a = 0},
-      tertiary = {r = 1, g = 1, b = 1, a = 1},
-      quaternary = {r = 0, g = 0, b = 0, a = 0},
-    },
+    crafting_machine_tint = only_tertiary,
     --hidden = true,
     hide_from_player_crafting = true,
     surface_conditions = panglia_only,
@@ -1675,12 +1665,7 @@ data:extend({
     main_product = "panglia_cloned_specimen_body_3",
     allow_productivity = true,
     enabled = false,
-    crafting_machine_tint = {
-      primary = {r = 0, g = 0, b = 0, a = 0},
-      secondary = {r = 0, g = 0, b = 0, a = 0},
-      tertiary = {r = 0, g = 0, b = 0, a = 0},
-      quaternary = {r = 1, g = 1, b = 1, a = 1},
-    },
+    crafting_machine_tint = only_quaternary,
     --hidden = true,
     hide_from_player_crafting = true,
     surface_conditions = panglia_only,

@@ -980,6 +980,24 @@ data:extend({
     {
       shader_variation = "wetland-water",
       lightmap_alpha = 0, -- needed for water mask
+      
+      noise_textures =
+      {
+        {
+          filename = terrain .. "watercaustics.png",
+          size = 512
+        }
+      },
+      image_textures =
+      {
+        {
+          filename = terrain .. "wetland-dead-skin-shader.png",
+        }
+      },
+
+
+
+------------ for pre-2.1.22 versions
       textures =
       {
         {
@@ -993,10 +1011,14 @@ data:extend({
           height = 512 * 4
         }
       },
+
       texture_variations_columns = 1,
       texture_variations_rows = 1,
       secondary_texture_variations_columns = 4,
       secondary_texture_variations_rows = 4,
+
+-------------------
+      
       animation_speed = 3.5,
       animation_scale = { 0.8, 0.8 },
       tick_scale = 6,

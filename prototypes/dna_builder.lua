@@ -1,3 +1,4 @@
+require ("__base__.prototypes.entity.pipecovers")
 local hit_effects = require("__base__.prototypes.entity.hit-effects")
 local sounds = require("__base__.prototypes.entity.sounds")
 local item_sounds = require("__base__.prototypes.item_sounds")
@@ -42,7 +43,14 @@ end
 empty = {filename = "__panglia_planet_assets__/graphics/empty.png", size = 1}
 
 local pipe_connectors = {
-  north = empty,
+  north = 
+  {
+    filename = entity .. entityname .. "_pipeN.png",
+    shift = {0, 1},
+    width = 128,
+    height = 128,
+    scale = 0.5,
+  },
   east =
   {
     filename = entity .. entityname .. "_pipeE.png",
@@ -62,6 +70,41 @@ local pipe_connectors = {
   west =
   {
     filename = entity .. entityname .. "_pipeW.png",
+    shift = {1, 0},
+    width = 128,
+    height = 128,
+    scale = 0.5,
+  },
+}
+
+local actual_pipe_connectors = {
+  north = 
+  {
+    filename = entity .. entityname .. "_liquid-pipe-N.png",
+    shift = {0, 1},
+    width = 128,
+    height = 128,
+    scale = 0.5,
+  },
+  east =
+  {
+    filename = entity .. entityname .. "_liquid-pipe-E.png",
+    shift = {-1, 0},
+    width = 128,
+    height = 128,
+    scale = 0.5,
+  },
+  south =
+  {
+    filename = entity .. entityname .. "_liquid-pipe-S.png",
+    shift = {0, -1},
+    width = 128,
+    height = 128,
+    scale = 0.5,
+  },
+  west =
+  {
+    filename = entity .. entityname .. "_liquid-pipe-W.png",
     shift = {1, 0},
     width = 128,
     height = 128,
@@ -139,6 +182,7 @@ local screen_anim_base = function(num)
           frame_count = 50,
           shift = util.by_pixel_hr(121, 45),
           draw_as_glow = true,
+          blend_mode = "additive",
         },
       },
     },
@@ -170,6 +214,7 @@ local screen_anim_when_changing =
         frame_count = 50,
         shift = util.by_pixel_hr(121, 45),
         draw_as_glow = true,
+        blend_mode = "additive",
       },
     },
   },
@@ -227,7 +272,7 @@ local graphicsset = function(num)
   if num == 1 then
     visu = 
     {
-      running_anim,
+      --running_anim,
       base_image(1),
       screen_anim_base(1),
       screen_anim_when_changing,
@@ -278,6 +323,25 @@ end
 
 
 
+data:extend({
+    {
+        type = "sound",
+        name = "panglia_dna_builder_switch_to_phase1",
+        category = "game-effect",
+        filename = "__panglia_planet_assets__/sounds/panglia_dna_builder_switch_to_phase1.ogg",
+        volume = 0.8,
+    },
+    {
+        type = "sound",
+        name = "panglia_dna_builder_switch_to_phase2",
+        category = "game-effect",
+        filename = "__panglia_planet_assets__/sounds/panglia_dna_builder_switch_to_phase2.ogg",
+        volume = 0.8,
+    }
+})
+
+
+
 
 
 --    ██ ████████ ███████ ███    ███ 
@@ -306,10 +370,13 @@ data:extend({
     type = "recipe",
     name = entityname,
     energy_required = 5,
-    categories = {"crafting"},
+    categories = {"crafting-with-fluid"},
     ingredients =
     {
-      {type = "item", name = "data-processor", amount = 1},
+      {type = "item", name = "panglia_dna_scanner", amount = 1},
+      {type = "item", name = "ai-tier-3", amount = 10},
+      {type = "item", name = "datacell-dna-raw", amount = 100},
+      {type = "fluid", name = "panglia_branbalite_slurry", amount = 200},
     },
     results = {{type = "item", name = entityname, amount = 1}},
     allow_productivity = false,
@@ -366,7 +433,7 @@ data:extend({
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
     minable = {mining_time = 1, result = entityname},
     crafting_categories = {"dna_builder_1"},
-    max_health = 300,
+    max_health = 400,
     corpse = entityname .. "-remnants",
     surface_conditions = panglia_only,
     dying_explosion = "assembling-machine-1-explosion",
@@ -382,8 +449,10 @@ data:extend({
         pipe_picture = pipe_connectors,
         volume = 100,
         pipe_connections = {
-          {flow_direction = "input", direction = defines.direction.west, position = {-((size/2)-0.5), pipedistance}, connection_category = "data"},
-          {flow_direction = "input", direction = defines.direction.west, position = {-((size/2)-0.5), -pipedistance}, connection_category = "data"},
+          {flow_direction = "input", direction = defines.direction.north, position = {pipedistance, -((size/2)-0.5)}, connection_category = "data"},
+          {flow_direction = "input", direction = defines.direction.north, position = {-pipedistance, -((size/2)-0.5)}, connection_category = "data"},
+          {flow_direction = "input", direction = defines.direction.south, position = {pipedistance, ((size/2)-0.5)}, connection_category = "data"},
+          {flow_direction = "input", direction = defines.direction.south, position = {-pipedistance, ((size/2)-0.5)}, connection_category = "data"},
         },
         secondary_draw_orders = {east = -12, west = -12, north = -12, south = 4},
         render_layer = "object",
@@ -402,7 +471,7 @@ data:extend({
         max_pipeline_extent = 1000000,
       },]]
     },
-    use_mirroring = true,
+    --use_mirroring = true,
     collision_box = {{-((size/2)-0.3), -((size/2)-0.3)}, {((size/2)-0.3), ((size/2)-0.3)}},
     selection_box = {{-(size/2), -(size/2)}, {(size/2), (size/2)}},
     damaged_trigger_effect = hit_effects.entity(),
@@ -412,10 +481,10 @@ data:extend({
     (
       universal_connector_template,
       {
-        { variation = 7, main_offset = util.by_pixel_hr(-85, 105), shadow_offset = util.by_pixel_hr(-10, 179), show_shadow = true },
-        { variation = 7, main_offset = util.by_pixel_hr(-85, 105), shadow_offset = util.by_pixel_hr(-10, 179), show_shadow = true },
-        { variation = 7, main_offset = util.by_pixel_hr(-85, 105), shadow_offset = util.by_pixel_hr(-10, 179), show_shadow = true },
-        { variation = 7, main_offset = util.by_pixel_hr(-85, 105), shadow_offset = util.by_pixel_hr(-10, 179), show_shadow = true }
+        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
+        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
+        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
+        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
       }
     ),
     alert_icon_shift = util.by_pixel(0, 0),
@@ -440,21 +509,22 @@ data:extend({
     allowed_effects = {"speed", "consumption", "pollution", "productivity"},
     effect_receiver = {uses_module_effects = true, uses_beacon_effects = true, uses_surface_effects = true},
     impact_category = "metal-large",
-    open_sound = {filename = soundspath .. "tv_open.ogg", volume = 1},
-    close_sound = {filename = soundspath .. "tv_close.ogg", volume = 1},
+    open_sound = {filename = soundspath .. "dna_builder_open.ogg", volume = 1},
+    close_sound = {filename = soundspath .. "dna_builder_close.ogg", volume = 1},
+    build_sound = {filename = soundspath .. "dna_builder_built.ogg", volume = 1},
     working_sound =
     {
-      sound = {filename = soundspath .. "dna_scanner.ogg", volume = 0.5},
+      sound = {filename = soundspath .. "dna_builder_working1.ogg", volume = 1},
       max_sounds_per_prototype = 5,
       fade_in_ticks = 20,
       fade_out_ticks = 20,
-      sound_accents = {
-        {
-          sound = {filename = soundspath .. "dna_scanner_recurring.ogg", volume = 1.5},
-          frame = 30,
-          play_for_working_visualisation = "running_anim"
-        },
-      },
+      --sound_accents = {
+      --  {
+      --    sound = {filename = soundspath .. "dna_scanner_recurring.ogg", volume = 1.5},
+      --    frame = 30,
+      --    play_for_working_visualisation = "running_anim"
+      --  },
+      --},
     },
   },
 
@@ -476,7 +546,7 @@ data:extend({
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
     minable = {mining_time = 1, result = entityname},
     crafting_categories = {"dna_builder_2"},
-    max_health = 300,
+    max_health = 400,
     corpse = entityname .. "-remnants",
     surface_conditions = panglia_only,
     dying_explosion = "assembling-machine-1-explosion",
@@ -489,15 +559,18 @@ data:extend({
     {
       {
         production_type = "input",
-        pipe_picture = pipe_connectors,
+        pipe_picture = actual_pipe_connectors,
+      pipe_covers = pipecoverspictures(),
         volume = 100,
         pipe_connections = {
-          {flow_direction = "input", direction = defines.direction.west, position = {-((size/2)-0.5), pipedistance}, connection_category = "data"},
-          {flow_direction = "input", direction = defines.direction.west, position = {-((size/2)-0.5), -pipedistance}, connection_category = "data"},
+          {flow_direction = "input", direction = defines.direction.east, position = {((size/2)-0.5), pipedistance}},
+          {flow_direction = "input", direction = defines.direction.east, position = {((size/2)-0.5), -pipedistance}},
+          {flow_direction = "input", direction = defines.direction.west, position = {-((size/2)-0.5), pipedistance}},
+          {flow_direction = "input", direction = defines.direction.west, position = {-((size/2)-0.5), -pipedistance}},
         },
-        secondary_draw_orders = {east = -12, west = -12, north = -12, south = 4},
+        secondary_draw_orders = {east = 12, west = 12, north = -13, south = 12},
         render_layer = "object",
-        max_pipeline_extent = 1000000,
+        --max_pipeline_extent = 1000000,
       },
       --[[{
         production_type = "output",
@@ -512,7 +585,7 @@ data:extend({
         max_pipeline_extent = 1000000,
       },]]
     },
-    use_mirroring = true,
+    --use_mirroring = true,
     collision_box = {{-((size/2)-0.3), -((size/2)-0.3)}, {((size/2)-0.3), ((size/2)-0.3)}},
     selection_box = {{-(size/2), -(size/2)}, {(size/2), (size/2)}},
     damaged_trigger_effect = hit_effects.entity(),
@@ -522,10 +595,10 @@ data:extend({
     (
       universal_connector_template,
       {
-        { variation = 7, main_offset = util.by_pixel_hr(-85, 105), shadow_offset = util.by_pixel_hr(-10, 179), show_shadow = true },
-        { variation = 7, main_offset = util.by_pixel_hr(-85, 105), shadow_offset = util.by_pixel_hr(-10, 179), show_shadow = true },
-        { variation = 7, main_offset = util.by_pixel_hr(-85, 105), shadow_offset = util.by_pixel_hr(-10, 179), show_shadow = true },
-        { variation = 7, main_offset = util.by_pixel_hr(-85, 105), shadow_offset = util.by_pixel_hr(-10, 179), show_shadow = true }
+        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
+        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
+        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
+        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
       }
     ),
     alert_icon_shift = util.by_pixel(0, 0),
@@ -550,21 +623,22 @@ data:extend({
     allowed_effects = {"speed", "consumption", "pollution", "productivity"},
     effect_receiver = {uses_module_effects = true, uses_beacon_effects = true, uses_surface_effects = true},
     impact_category = "metal-large",
-    open_sound = {filename = soundspath .. "tv_open.ogg", volume = 1},
-    close_sound = {filename = soundspath .. "tv_close.ogg", volume = 1},
+    open_sound = {filename = soundspath .. "dna_builder_open.ogg", volume = 1},
+    close_sound = {filename = soundspath .. "dna_builder_close.ogg", volume = 1},
+    --build_sound = {filename = soundspath .. "dna_builder_phasetwo_built.ogg", volume = 1},
     working_sound =
     {
-      sound = {filename = soundspath .. "dna_scanner.ogg", volume = 0.5},
+      sound = {filename = soundspath .. "dna_builder_working2.ogg", volume = 1},
       max_sounds_per_prototype = 5,
       fade_in_ticks = 20,
       fade_out_ticks = 20,
-      sound_accents = {
-        {
-          sound = {filename = soundspath .. "dna_scanner_recurring.ogg", volume = 1.5},
-          frame = 30,
-          play_for_working_visualisation = "running_anim"
-        },
-      },
+      --sound_accents = {
+      --  {
+      --    sound = {filename = soundspath .. "dna_scanner_recurring.ogg", volume = 1.5},
+      --    frame = 30,
+      --    play_for_working_visualisation = "running_anim"
+      --  },
+      --},
     },
   },
 

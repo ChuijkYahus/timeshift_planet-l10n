@@ -222,7 +222,7 @@ end)
 script.on_event(prototypes.recipe["panglia_collect_dna_fish"].on_crafted_event, function(event)
   if not event.entity or not event.entity.valid then return end
   local force = event.entity.force
-  if not event.entity.force then return end
+  if not force then return end
   if force.technologies["panglia_advanced_optics_nanotech"].researched then
     if not force.technologies["panglia_collect_dna_fish"].researched then
       force.technologies["panglia_collect_dna_fish"].researched = true
@@ -235,7 +235,7 @@ end)
 script.on_event({prototypes.recipe["panglia_collect_dna_biter"].on_crafted_event,prototypes.recipe["panglia_collect_dna_biter_egg"].on_crafted_event}, function(event)
   if not event.entity or not event.entity.valid then return end
   local force = event.entity.force
-  if not event.entity.force then return end
+  if not force then return end
   if force.technologies["panglia_advanced_optics_nanotech"].researched then
     if not force.technologies["panglia_collect_dna_biter"].researched then
       force.technologies["panglia_collect_dna_biter"].researched = true
@@ -249,7 +249,7 @@ end)
 script.on_event(prototypes.recipe["panglia_collect_dna_demolisher"].on_crafted_event, function(event)
   if not event.entity or not event.entity.valid then return end
   local force = event.entity.force
-  if not event.entity.force then return end
+  if not force then return end
   if force.technologies["panglia_advanced_optics_nanotech"].researched then
     if not force.technologies["panglia_collect_dna_demolisher"].researched then
       force.technologies["panglia_collect_dna_demolisher"].researched = true
@@ -262,7 +262,7 @@ end)
 script.on_event(prototypes.recipe["panglia_collect_dna_pentapod"].on_crafted_event, function(event)
   if not event.entity or not event.entity.valid then return end
   local force = event.entity.force
-  if not event.entity.force then return end
+  if not force then return end
   if force.technologies["panglia_advanced_optics_nanotech"].researched then
     if not force.technologies["panglia_collect_dna_pentapod"].researched then
       force.technologies["panglia_collect_dna_pentapod"].researched = true
@@ -332,7 +332,7 @@ end)
 
 
 
-
+soundspath = "__panglia_planet_assets__/sounds/"
 
 
 -- DNA Builder phase transformation script
@@ -413,14 +413,31 @@ script.on_event(prototypes.recipe["panglia_dna_builder_make_phasetwo"].on_crafte
 
   if not entity or not entity.valid then return end
   if entity.name ~= PHASE_ONE then return end
+
+  local force = entity.force
+  if not force then return end
+
+  if not force.technologies["panglia_dna_manipulation_phasetwo_tech"].researched then
+    force.technologies["panglia_dna_manipulation_phasetwo_tech"].researched = true
+  end
+
   local old_unit_number = entity.unit_number
   storage.panglia_dna_builder_progress[old_unit_number] = nil
   local new_entity = transform_entity(entity, PHASE_TWO)
   if new_entity and new_entity.valid then
+    new_entity.clear_fluids()
     storage.panglia_dna_builder_progress[new_entity.unit_number] = 0
     create_or_update_countdown(new_entity, 0)
+    if new_entity.surface then
+      new_entity.surface.play_sound({
+        path = "panglia_dna_builder_switch_to_phase2",
+        position = new_entity.position,
+      })
+    end
   end
+  
 end)
+
 
 script.on_event(prototypes.recipe["panglia_dna_candidate"].on_crafted_event, function(event)
   local entity = event.entity
@@ -453,7 +470,16 @@ script.on_event(prototypes.recipe["panglia_cloned_specimen_body_0"].on_crafted_e
       storage.panglia_dna_builder_text_ids[unit_number] = nil
     end
     storage.panglia_dna_builder_progress[unit_number] = nil
-    transform_entity(entity, PHASE_ONE)
+    local new_entity = transform_entity(entity, PHASE_ONE)
+    if new_entity and new_entity.valid then
+      new_entity.clear_fluids()
+      if new_entity.surface then
+        new_entity.surface.play_sound({
+          path = "panglia_dna_builder_switch_to_phase1",
+          position = new_entity.position,
+        })
+      end
+    end
   else
     create_or_update_countdown(entity, current_progress)
   end

@@ -166,7 +166,7 @@ data:extend({
       draw_only_when_connected = true,
       production_type = "input",
       filter = "panglia_branbalite_slurry",
-      minimum_temperature = 0,
+      --minimum_temperature = 0,
     },
     energy_source =
     {

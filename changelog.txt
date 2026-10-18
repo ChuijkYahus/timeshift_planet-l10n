@@ -1,9 +1,12 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.8.0
 Date: 2026-
+  Features:
+    - Added DNA builder, which has 2 phases: create new DNA, send to simchamber, if successful, send back to make phase 2 (a big batch of embryos)
   Bugfixes:
     - Fixed missing key and icon for biter flesh residues
   Graphics:
+    - Slightly modified Simulation chamber graphics
     - Some icons reworked
     - Planet backdrop reworked (thanks Hanodest for the great tool)
     - Modified map colors
