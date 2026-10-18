@@ -108,11 +108,11 @@ data:extend({
     pictures =
     {
       {size = 64, filename = icons .. "panglia_panglite_glass-1.png", scale = 0.5},
-      --{size = 64, filename = icons .. "panglia_panglite_glass-2.png", scale = 0.5},
-      --{size = 64, filename = icons .. "panglia_panglite_glass-3.png", scale = 0.5},
-      --{size = 64, filename = icons .. "panglia_panglite_glass-4.png", scale = 0.5},
-      --{size = 64, filename = icons .. "panglia_panglite_glass-5.png", scale = 0.5},
-      --{size = 64, filename = icons .. "panglia_panglite_glass-6.png", scale = 0.5},
+      {size = 64, filename = icons .. "panglia_panglite_glass-2.png", scale = 0.5},
+      {size = 64, filename = icons .. "panglia_panglite_glass-3.png", scale = 0.5},
+      {size = 64, filename = icons .. "panglia_panglite_glass-4.png", scale = 0.5},
+      {size = 64, filename = icons .. "panglia_panglite_glass-5.png", scale = 0.5},
+      {size = 64, filename = icons .. "panglia_panglite_glass-6.png", scale = 0.5},
     },
   },
   {

@@ -615,19 +615,12 @@ data:extend({
       },
     },
     prerequisites = {"panglia_dna_manipulation_phasetwo_tech", "matter_printer-technology"},
-    unit =
+    research_trigger =
     {
-      count = 40,
-      ingredients =
-      {
-        {"datacell-ai-model-data", 1},
-        {"datacell-solved-equation", 1},
-        {"datacell-timewarp_data", 1},
-        {"datacell-dna-raw", 1},
-        {"datacell-dna-sequenced", 1},
-      },
-      time = 1658*500,
-    }
+      type = "craft-item",
+      item = "panglia_cloned_specimen_body_1",
+      count = 1,
+    },
   },
 
 
@@ -647,7 +640,7 @@ data:extend({
     research_trigger =
     {
       type = "craft-item",
-      item = "panglia_cloned_specimen_body_1",
+      item = "panglia_cloned_specimen_body_2",
       count = 1,
     },
   },
@@ -839,6 +832,7 @@ end
 
 if data.raw["technology"]["thinking-brain-technology"] then
   data.raw["technology"]["thinking-brain-technology"].prerequisites = {"panglia_simulation_matrix"}
+  data.raw["technology"]["panglia_sentient_processor"].prerequisites = {"thinking-brain-technology"}
 end
 
 if data.raw["technology"]["snouz_long_electric_gun_turret"] and data.raw["technology"]["moshine-tech-processing-grid"] then
