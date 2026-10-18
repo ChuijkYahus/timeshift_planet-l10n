@@ -15,7 +15,7 @@ local entityname = "panglia_dna_builder"
 local entityname2 = "panglia_dna_builder_phasetwo"
 local entity = "__panglia_planet_assets__/graphics/entity/panglia_dna_builder/"
 
-
+local wire = {variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true}
 
 local make_simulation = function(name)
   return
@@ -272,7 +272,6 @@ local graphicsset = function(num)
   if num == 1 then
     visu = 
     {
-      --running_anim,
       base_image(1),
       screen_anim_base(1),
       screen_anim_when_changing,
@@ -321,8 +320,6 @@ local graphicsset = function(num)
   }
 end
 
-
-
 data:extend({
     {
         type = "sound",
@@ -341,9 +338,6 @@ data:extend({
 })
 
 
-
-
-
 --    ██ ████████ ███████ ███    ███ 
 --    ██    ██    ██      ████  ████ 
 --    ██    ██    █████   ██ ████ ██ 
@@ -351,7 +345,6 @@ data:extend({
 --    ██    ██    ███████ ██      ██ 
 
 data:extend({
-
   {
     type = "item",
     name = entityname,
@@ -365,7 +358,6 @@ data:extend({
     stack_size = 20,
     weight = 200 * kg
   },
-
   {
     type = "recipe",
     name = entityname,
@@ -458,53 +450,25 @@ data:extend({
         render_layer = "object",
         max_pipeline_extent = 1000000,
       },
-      --[[{
-        production_type = "output",
-        pipe_picture = pipe_connectors,
-        volume = 100,
-        pipe_connections = {
-          {flow_direction = "output", direction = defines.direction.east, position = {((size/2)-0.5), pipedistance}, connection_category = "data"},
-          {flow_direction = "output", direction = defines.direction.east, position = {((size/2)-0.5), -pipedistance}, connection_category = "data"},
-        },
-        secondary_draw_orders = {east = -12, west = -12, north = -12, south = 4},
-        render_layer = "object",
-        max_pipeline_extent = 1000000,
-      },]]
     },
-    --use_mirroring = true,
     collision_box = {{-((size/2)-0.3), -((size/2)-0.3)}, {((size/2)-0.3), ((size/2)-0.3)}},
     selection_box = {{-(size/2), -(size/2)}, {(size/2), (size/2)}},
     damaged_trigger_effect = hit_effects.entity(),
     fast_replaceable_group = entityname,
     circuit_wire_max_distance = assembling_machine_circuit_wire_max_distance,
-    circuit_connector = circuit_connector_definitions.create_vector
-    (
-      universal_connector_template,
-      {
-        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
-        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
-        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
-        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
-      }
-    ),
+    circuit_connector = circuit_connector_definitions.create_vector(universal_connector_template, {wire,wire,wire,wire}),
     alert_icon_shift = util.by_pixel(0, 0),
     graphics_set = graphicsset(1),
-    --graphics_set_flipped  = graphicsset,
     match_animation_speed_to_activity = true,
-    
     perceived_performance  = {minimum = 0.5, maximum = 5},
-
-
     crafting_speed = 1,
     energy_source =
     {
       type = "electric",
       usage_priority = "secondary-input",
-      --emissions_per_minute = { pollution = 4 }
       drain = "1kW",
     },
     energy_usage = "30kW",
-    --heating_energy = "200kW",
     module_slots = 2,
     allowed_effects = {"speed", "consumption", "pollution", "productivity"},
     effect_receiver = {uses_module_effects = true, uses_beacon_effects = true, uses_surface_effects = true},
@@ -528,9 +492,6 @@ data:extend({
     },
   },
 
-
-
-
 --    ██████  ██   ██  █████  ███████ ███████     ██████  
 --    ██   ██ ██   ██ ██   ██ ██      ██               ██ 
 --    ██████  ███████ ███████ ███████ █████        █████  
@@ -539,7 +500,6 @@ data:extend({
 
   {
     type = "furnace",
-    --type = "assembling-machine",
     fixed_recipe = "panglia_cloned_specimen_body_0",
     name = entityname2,
     icon = "__panglia_planet__/graphics/icons/panglia_dna_builder.png",
@@ -560,7 +520,7 @@ data:extend({
       {
         production_type = "input",
         pipe_picture = actual_pipe_connectors,
-      pipe_covers = pipecoverspictures(),
+        pipe_covers = pipecoverspictures(),
         volume = 100,
         pipe_connections = {
           {flow_direction = "input", direction = defines.direction.east, position = {((size/2)-0.5), pipedistance}},
@@ -570,62 +530,32 @@ data:extend({
         },
         secondary_draw_orders = {east = 12, west = 12, north = -13, south = 12},
         render_layer = "object",
-        --max_pipeline_extent = 1000000,
       },
-      --[[{
-        production_type = "output",
-        pipe_picture = pipe_connectors,
-        volume = 100,
-        pipe_connections = {
-          {flow_direction = "output", direction = defines.direction.east, position = {((size/2)-0.5), pipedistance}, connection_category = "data"},
-          {flow_direction = "output", direction = defines.direction.east, position = {((size/2)-0.5), -pipedistance}, connection_category = "data"},
-        },
-        secondary_draw_orders = {east = -12, west = -12, north = -12, south = 4},
-        render_layer = "object",
-        max_pipeline_extent = 1000000,
-      },]]
     },
-    --use_mirroring = true,
     collision_box = {{-((size/2)-0.3), -((size/2)-0.3)}, {((size/2)-0.3), ((size/2)-0.3)}},
     selection_box = {{-(size/2), -(size/2)}, {(size/2), (size/2)}},
     damaged_trigger_effect = hit_effects.entity(),
     fast_replaceable_group = entityname,
     circuit_wire_max_distance = assembling_machine_circuit_wire_max_distance,
-    circuit_connector = circuit_connector_definitions.create_vector
-    (
-      universal_connector_template,
-      {
-        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
-        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
-        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
-        { variation = 14, main_offset = util.by_pixel_hr(-140, -89), shadow_offset = util.by_pixel_hr(-67, -16), show_shadow = true },
-      }
-    ),
+    circuit_connector = circuit_connector_definitions.create_vector(universal_connector_template, {wire,wire,wire,wire}),
     alert_icon_shift = util.by_pixel(0, 0),
     graphics_set = graphicsset(2),
-    --graphics_set_flipped  = graphicsset,
     match_animation_speed_to_activity = true,
-    
     perceived_performance  = {minimum = 0.5, maximum = 5},
-
-
     crafting_speed = 1,
     energy_source =
     {
       type = "electric",
       usage_priority = "secondary-input",
-      --emissions_per_minute = { pollution = 4 }
       drain = "1kW",
     },
     energy_usage = "30kW",
-    --heating_energy = "200kW",
     module_slots = 2,
     allowed_effects = {"speed", "consumption", "pollution", "productivity"},
     effect_receiver = {uses_module_effects = true, uses_beacon_effects = true, uses_surface_effects = true},
     impact_category = "metal-large",
     open_sound = {filename = soundspath .. "dna_builder_open.ogg", volume = 1},
     close_sound = {filename = soundspath .. "dna_builder_close.ogg", volume = 1},
-    --build_sound = {filename = soundspath .. "dna_builder_phasetwo_built.ogg", volume = 1},
     working_sound =
     {
       sound = {filename = soundspath .. "dna_builder_working2.ogg", volume = 1},
