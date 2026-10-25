@@ -189,10 +189,28 @@ data:extend({
     hide_from_player_crafting = true,
     hide_from_signal_gui = true,
     hidden = true,
+    flags = {"hide-from-bonus-gui", "hide-from-fuel-tooltip", "hide-spoilage-bar-in-world", "hide-health-bar-in-world", "ignore-spoil-time-modifier"},
     hidden_in_factoriopedia = true,
     allow_as_intermediate = false,
     default_import_location = "panglia",
     weight = 1*kg,
+  },
+  {
+    type = "item",
+    name = "panglia_dummy_dna_builder_phase2",
+    icon = icons .. "panglia_dummy_dna_builder_phase2.png",
+    subgroup = "panglia-processes",
+    order = "b[otherres]-bd",
+    stack_size = 1,
+    hide_from_player_crafting = true,
+    hide_from_signal_gui = true,
+    hidden = true,
+    flags = {"hide-from-bonus-gui", "hide-from-fuel-tooltip", "hide-spoilage-bar-in-world", "hide-health-bar-in-world", "ignore-spoil-time-modifier"},
+    hidden_in_factoriopedia = true,
+    allow_as_intermediate = false,
+    default_import_location = "panglia",
+    weight = 1*kg,
+    spoil_ticks = 1,
   },
   {
     type = "item",
@@ -305,8 +323,15 @@ data:extend({
 
   {
     type = "item",
-    name = "panglia_dna_candidate",
-    icon = icons .. "panglia_dna_candidate.png",
+    name = "panglia_cloned_specimen_embryo_candidate",
+    icon = icons .. "panglia_cloned_specimen_embryo_candidate.png",
+    pictures =
+    {
+      { filename = icons .. "panglia_cloned_specimen_embryo_candidate_belt1.png", size = 64, scale = 0.5 },
+      { filename = icons .. "panglia_cloned_specimen_embryo_candidate_belt2.png", size = 64, scale = 0.5 },
+      { filename = icons .. "panglia_cloned_specimen_embryo_candidate_belt3.png", size = 64, scale = 0.5 },
+      { filename = icons .. "panglia_cloned_specimen_embryo_candidate_belt4.png", size = 64, scale = 0.5 },
+    },
     subgroup = "panglia-processes",
     order = "c[cloning]-ff",
     inventory_move_sound = space_age_item_sounds.agriculture_inventory_move,
@@ -337,8 +362,15 @@ data:extend({
 
   {
     type = "item",
-    name = "panglia_cloned_specimen_body_0",
-    icon = icons .. "panglia_cloned_specimen_body_0.png",
+    name = "panglia_cloned_specimen_embryo",
+    icon = icons .. "panglia_cloned_specimen_embryo.png",
+    pictures =
+    {
+      { filename = icons .. "panglia_cloned_specimen_embryo_belt1.png", size = 64, scale = 0.5 },
+      { filename = icons .. "panglia_cloned_specimen_embryo_belt2.png", size = 64, scale = 0.5 },
+      { filename = icons .. "panglia_cloned_specimen_embryo_belt3.png", size = 64, scale = 0.5 },
+      { filename = icons .. "panglia_cloned_specimen_embryo_belt4.png", size = 64, scale = 0.5 },
+    },
     subgroup = "panglia-processes",
     order = "c[cloning]-ff",
     inventory_move_sound = space_age_item_sounds.agriculture_inventory_move,
