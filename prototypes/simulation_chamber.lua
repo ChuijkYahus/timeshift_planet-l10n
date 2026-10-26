@@ -19,7 +19,7 @@ data:extend(
     name = "simulation_chamber",
     icon = icons .. "simulation_chamber.png",
     subgroup = "panglia-production-machine",
-    order = "e[simulation_chamber]",
+    order = "a6[simulation_chamber]",
     inventory_move_sound = item_sounds.mechanical_inventory_move,
     pick_sound = item_sounds.mechanical_inventory_pickup,
     drop_sound = item_sounds.mechanical_inventory_move,

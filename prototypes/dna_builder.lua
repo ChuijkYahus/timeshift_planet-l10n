@@ -350,7 +350,7 @@ data:extend({
     name = entityname,
     icon = "__panglia_planet__/graphics/icons/panglia_dna_builder.png",
     subgroup = "panglia-production-machine",
-    order = "a3[".. entityname .."]",
+    order = "a4[".. entityname .."]",
     place_result = entityname,
     inventory_move_sound = item_sounds.mechanical_inventory_move,
     pick_sound = item_sounds.mechanical_inventory_pickup,

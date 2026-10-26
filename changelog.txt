@@ -27,6 +27,8 @@ Date: 2026-10-
   Sounds:
     - Changed planet atmosphere
     - Changed sound volume of Nanoscale Plant
+  Gui:
+    - Re-ordered some icons
   Locale:
     - Changed name of Branbalite/branbalite slurry into Gliate tree/Gliate leaves/Gliatine (Easier to memorize since it's in the name of the planet)
     - Changed and added some descriptions
