@@ -1,6 +1,19 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.8.1
+Date: 2026-10-28
+  Changes:
+    - Embryo candidate take "dna_sequenced.data" instead of raw
+    - Added a technology for DNA sequencing
+    - Added biochamber to "Embryo forge" and "Simulation chamber" recipes
+  Gui:
+    - Planet discovery tech uses the moon icon
+  Bugfixes:
+    - Fixed that Embryo [validated] was available from the start
+  Locale:
+    - Changed some descriptions and tech names
+---------------------------------------------------------------------------------------------------
 Version: 0.8.0
-Date: 2026-10-
+Date: 2026-10-26
   Features:
     - Added Embryo forge building
     - (The Embryo forge has 2 phases: create new DNA, send to simchamber, if successful, send back to make phase 2 (for a batch of embryos))

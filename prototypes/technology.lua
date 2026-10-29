@@ -5,7 +5,8 @@ data:extend({
   {
     type = "technology",
     name = "panglia_planet_discovery_panglia",
-    icons = util.technology_icon_constant_planet(techicons .. "panglia-tech-panglia.png"),
+    --icons = util.technology_icon_constant_planet(techicons .. "panglia-tech-panglia.png"),
+    icons = PlanetsLib.technology_icon_moon(techicons .. "panglia-tech-panglia.png", 256),
     icon_size = 256,
     essential = true,
     effects =
@@ -503,6 +504,41 @@ data:extend({
     }
   },
 
+  {
+    type = "technology",
+    name = "panglia_dna_unfolding",
+    icon = "__panglia_planet__/graphics/technology/panglia_dna_unfolding.png",
+    icon_size = 256,
+    effects =
+    {
+      {
+        type = "nothing",
+        icon = "__panglia_planet__/graphics/icons/data/processing-grid-process-dna.png",
+        effect_description = {"description.panglia_dna_unfolding_description"},
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "datacell-dna-sequenced"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "datacell-remove-dna-sequenced"
+      },
+    },
+    prerequisites = {
+      "panglia_collect_dna_fish", 
+      "panglia_collect_dna_biter", 
+      "panglia_collect_dna_demolisher", 
+      "panglia_collect_dna_pentapod",
+    },
+    research_trigger =
+    {
+      type = "build-entity",
+      --trigger_description = {"description.panglia_collect_dna_pentapod"},
+      --icon = icons .. "data/panglia_collect_dna_pentapod.png",
+      entity = "processing-grid-process-dna",
+    },
+  },
 
   {
     type = "technology",
@@ -521,11 +557,8 @@ data:extend({
       },
     },
     prerequisites = {
+      "panglia_dna_unfolding",
       "panglia_branbalite_slurry",
-      "panglia_collect_dna_fish", 
-      "panglia_collect_dna_biter", 
-      "panglia_collect_dna_demolisher", 
-      "panglia_collect_dna_pentapod",
       "moshine-tech-ai-tier-10",
     },
     unit =
@@ -535,7 +568,8 @@ data:extend({
       {
         {"datacell-ai-model-data", 1},
         {"datacell-solved-equation", 1},
-        {"datacell-dna-raw", 100},
+        {"datacell-dna-raw", 50},
+        {"datacell-dna-sequenced", 50},
       },
       time = 145*500
     }
@@ -570,7 +604,9 @@ data:extend({
       {
         {"datacell-ai-model-data", 1},
         {"datacell-solved-equation", 1},
+        {"datacell-timewarp_data", 1},
         {"datacell-dna-raw", 10},
+        {"datacell-dna-sequenced", 10},
       },
       time = 155*500
     }

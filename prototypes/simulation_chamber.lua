@@ -35,6 +35,7 @@ data:extend(
     categories = {"crafting-with-fluid"},
     ingredients =
     {
+      {type = "item", name = "biochamber", amount = 1},
       {type = "item", name = "data-processor", amount = 1},
       {type = "item", name = "panglia_dna_scanner", amount = 1},
       --{type = "item", name = "cloning-vat", amount = 1},

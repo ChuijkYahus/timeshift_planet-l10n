@@ -637,7 +637,7 @@ data:extend({
     allow_decomposition = false,
     energy_required = embryo_candidate_time * cloning_multiplier * beacon_multiplier,
     ingredients = {
-      {type = "fluid", name = "dna_raw_data", amount = 5},
+      {type = "fluid", name = "dna_sequenced_data", amount = 5}, -- previously dna_raw_data
     },
     results = {
       {type = "item", name = "panglia_cloned_specimen_embryo_candidate", amount = 1},
@@ -682,7 +682,7 @@ data:extend({
     name = "panglia_cloned_specimen_embryo",
     categories = {"dna_builder_2"},
     always_show_made_in = true,
-    enabled = true,
+    enabled = false,
     auto_recycle = false,
     allow_decomposition = false,
     energy_required = embryo_time * cloning_multiplier * beacon_multiplier,
